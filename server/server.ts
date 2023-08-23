@@ -5,7 +5,6 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
-import { expenseRoute } from "./src/route/expense.js";
 import { budgetCategoryRoute } from "./src/route/budgetCategory.js";
 import { authenticationRoute } from './src/route/authentication.js';
 import { verifyToken } from './src/controller/authenticationController.js';
@@ -27,7 +26,6 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/expense', expenseRoute);
 app.use('/api/budgetCategory', verifyToken, budgetCategoryRoute);
 app.use('/api/getToken', authenticationRoute);
 
