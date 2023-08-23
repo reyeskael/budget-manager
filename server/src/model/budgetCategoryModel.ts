@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -13,4 +13,4 @@ const budgetCategorySchema = new Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model("budgetCategory", budgetCategorySchema);
+export const budgetCategoryModel =  mongoose.model("budgetCategory", budgetCategorySchema);

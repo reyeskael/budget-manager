@@ -1,35 +1,33 @@
-const express = require("express");
+import express from "express";
 
-const router = express.Router();
+export const expenseRoute = express.Router();
 
-router.get('/', (req, res) => {
+expenseRoute.get('/', (req, res) => {
     res.json({
         "test": "get all"
     });
 });
 
-router.get('/:id', (req, res) => {
+expenseRoute.get('/:id', (req, res) => {
     res.json({
         "test": "get single"
     });
 });
 
-router.post('/', (req, res) => {
+expenseRoute.post('/', (req, res) => {
     res.json({
         "test": "post single"
     });
 });
 
-router.delete('/:id', (req, res) => {
+expenseRoute.delete('/:id', (req, res) => {
     res.json({
         "test": "delete single"
     });
 });
 
-router.patch('/:id', (req, res) => {
+expenseRoute.patch('/:id', (req, res) => {
     res.json({
         "test": "patcj single"
     });
 });
-
-module.exports = router;

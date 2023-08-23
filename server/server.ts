@@ -1,8 +1,10 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const expenseRoute = require("./route/expense");
-const budgetCategoryRoute = require("./route/budgetCategory");
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import express from "express";
+import mongoose from "mongoose";
+import { expenseRoute } from "./src/route/expense.js";
+import { budgetCategoryRoute } from "./src/route/budgetCategory.js";
 
 const app = express();
 

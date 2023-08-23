@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const budgetCategoryModel = require("../model/budgetCategoryModel");
+import mongoose from "mongoose";
+import { budgetCategoryModel } from "../model/budgetCategoryModel.js";
 
-const retrieveAllBudgetCategory = async (req, res) => {
+export const retrieveAllBudgetCategory = async (req, res) => {
     try {
         const budgetCategories = await budgetCategoryModel.find({}).sort({createdAt: -1});
 
@@ -11,7 +11,7 @@ const retrieveAllBudgetCategory = async (req, res) => {
     }
 }
 
-const retrieveBudgetCategory = async (req, res) => {
+export const retrieveBudgetCategory = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -31,7 +31,7 @@ const retrieveBudgetCategory = async (req, res) => {
     }
 }
 
-const createBudgetCategory = async (req, res) => {
+export const createBudgetCategory = async (req, res) => {
     const { name, code } = req.body;
     try {
         const budgetCategory = await budgetCategoryModel.create({
@@ -45,7 +45,7 @@ const createBudgetCategory = async (req, res) => {
     }
 }
 
-const deleteBudgetCategory = async (req, res) => {
+export const deleteBudgetCategory = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -65,7 +65,7 @@ const deleteBudgetCategory = async (req, res) => {
     }
 }
 
-const updateBudgetCategory = async (req, res) => {
+export const updateBudgetCategory = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -86,11 +86,3 @@ const updateBudgetCategory = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
-
-module.exports = {
-    retrieveAllBudgetCategory,
-    retrieveBudgetCategory,
-    createBudgetCategory,
-    deleteBudgetCategory,
-    updateBudgetCategory
-};
