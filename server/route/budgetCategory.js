@@ -1,35 +1,17 @@
 const express = require("express");
+const budgetCategoryModel = require("../model/budgetCategoryModel");
+const { createBudgetCategory, retrieveAllBudgetCategory, retrieveBudgetCategory, deleteBudgetCategory, updateBudgetCategory } = require("../controller/budgetCategoryController");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.json({
-        "test": "get all"
-    });
-});
+router.get('/', retrieveAllBudgetCategory);
 
-router.get('/:id', (req, res) => {
-    res.json({
-        "test": "get single"
-    });
-});
+router.get('/:id', retrieveBudgetCategory);
 
-router.post('/', (req, res) => {
-    res.json({
-        "test": "post single"
-    });
-});
+router.post('/', createBudgetCategory);
 
-router.delete('/:id', (req, res) => {
-    res.json({
-        "test": "delete single"
-    });
-});
+router.delete('/:id', deleteBudgetCategory);
 
-router.patch('/:id', (req, res) => {
-    res.json({
-        "test": "patcj single"
-    });
-});
+router.patch('/:id', updateBudgetCategory);
 
 module.exports = router;
