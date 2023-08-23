@@ -17,6 +17,7 @@ const PORT = process.env.PORT;
 // It attaches the request body to the routes (req).
 app.use(express.json());
 
+// It allows to access the request.cookies
 app.use(cookieParser());
 
 // Middleware - this will run in every request.
