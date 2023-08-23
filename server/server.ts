@@ -1,10 +1,14 @@
 import * as dotenv from 'dotenv';
+// Set up global configuration access
 dotenv.config();
 
 import express from "express";
 import mongoose from "mongoose";
+import cookieParser from 'cookie-parser';
 import { expenseRoute } from "./src/route/expense.js";
 import { budgetCategoryRoute } from "./src/route/budgetCategory.js";
+import { authenticationRoute } from './src/route/authentication.js';
+import { verifyToken } from './src/controller/authenticationController.js';
 
 const app = express();
 
@@ -12,6 +16,8 @@ const PORT = process.env.PORT;
 
 // It attaches the request body to the routes (req).
 app.use(express.json());
+
+app.use(cookieParser());
 
 // Middleware - this will run in every request.
 app.use((req, res, next) => {
@@ -21,7 +27,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/expense', expenseRoute);
-app.use('/api/budgetCategory', budgetCategoryRoute);
+app.use('/api/budgetCategory', verifyToken, budgetCategoryRoute);
+app.use('/api/getToken', authenticationRoute);
 
 // DB Connection
 mongoose.connect(process.env.MONGO_URI)
