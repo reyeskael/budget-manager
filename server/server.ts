@@ -6,8 +6,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 import { budgetCategoryRoute } from "./src/route/budgetCategory.js";
-import { authenticationRoute } from './src/route/authentication.js';
 import { verifyToken } from './src/controller/authenticationController.js';
+import { profileRoute } from './src/route/profile.js';
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/budgetCategory', verifyToken, budgetCategoryRoute);
-app.use('/api/getToken', authenticationRoute);
+app.use('/api/profile', profileRoute);
 
 // DB Connection
 mongoose.connect(process.env.MONGO_URI)
