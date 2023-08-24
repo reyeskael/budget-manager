@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { budgetCategoryModel } from "../model/budgetCategoryModel.js";
-import { ERROR_MESSAGE } from "../config/constrait.js";
+import { ERROR_MESSAGE } from "../config/constant.js";
 
 export const retrieveAllBudgetCategory = async (req, res) => {
     try {

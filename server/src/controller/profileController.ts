@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { profileModel } from "../model/profileModel.js";
 import { Profile } from "../types";
-import { ERROR_MESSAGE } from "../config/constrait.js";
+import { ERROR_MESSAGE } from "../config/constant.js";
 
 const passwordEncryption = (password) => {
     const saltRounds = 9;
