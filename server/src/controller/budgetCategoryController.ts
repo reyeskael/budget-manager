@@ -12,9 +12,9 @@ export const retrieveAllBudgetCategory = async (req, res) => {
 }
 
 export const retrieveBudgetCategory = async (req, res) => {
-    const { id } = req.params;
-
     try {
+        const { id } = req.params;
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid ID format." });
         }
@@ -32,8 +32,8 @@ export const retrieveBudgetCategory = async (req, res) => {
 }
 
 export const createBudgetCategory = async (req, res) => {
-    const { name, code } = req.body;
     try {
+        const { name, code } = req.body;
         const budgetCategory = await budgetCategoryModel.create({
             name,
             code
@@ -46,9 +46,9 @@ export const createBudgetCategory = async (req, res) => {
 }
 
 export const deleteBudgetCategory = async (req, res) => {
-    const { id } = req.params;
-
     try {
+        const { id } = req.params;
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid ID format." });
         }

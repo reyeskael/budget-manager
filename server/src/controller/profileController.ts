@@ -23,8 +23,8 @@ const isUsernameExisting = async (username) => {
 }
 
 export const registerProfile = async (req, res) => {
-    const profileDetails: Profile = req.body;
     try {
+        const profileDetails: Profile = req.body;
         const { password, username } = profileDetails;
         const isUsernameTaken = await isUsernameExisting(username);
         if (isUsernameTaken) {
@@ -44,9 +44,8 @@ export const registerProfile = async (req, res) => {
 }
 
 export const login = async (req, res, next) => {
-    const { username, password } = req.body;
-    
     try {
+        const { username, password } = req.body;
         const profileDetails = await profileModel.find({ username });
         if (profileDetails?.length === 0) {
             return res.status(400).json({ error: "Unable to find username." });

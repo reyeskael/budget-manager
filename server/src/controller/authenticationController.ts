@@ -13,9 +13,8 @@ export const getToken = (req, res) => {
 }
 
 export const verifyToken = (req, res, next) => {
-    const { token } = req.cookies;
-
     try {
+        const { token } = req.cookies;
         jwt.verify(token, process.env.MY_SECRET);
 
         next();
