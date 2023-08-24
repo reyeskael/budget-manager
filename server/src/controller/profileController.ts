@@ -28,7 +28,7 @@ export const registerProfile = async (req, res) => {
         const { password, username } = profileDetails;
         const isUsernameTaken = await isUsernameExisting(username);
         if (isUsernameTaken) {
-            return res.status(400).json({ error: "Username is already taken." });
+            throw new Error("Username is already taken.");
         }
         const encyptedPassword = passwordEncryption(password);
 
@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
             throw new Error("Unable to find username.");
         }
         if (!verifyPassword(password, profileDetails[0].password)) {
-            throw new Error("Incorrect password");
+            throw new Error("Incorrect password.");
         }
 
         req.profileDetails = {
@@ -70,10 +70,10 @@ export const updatePassword = async (req, res) => {
         const { username, password, newPassword } = req.body;
         const profileDetails = await profileModel.find({ username });
         if (profileDetails?.length === 0) {
-            return res.status(400).json({ error: "Unable to find username." });
+            throw new Error("Unable to find username.");
         }
         if (!verifyPassword(password, profileDetails[0].password)) {
-            return res.status(400).json({ error: "Incorrect password." });
+            throw new Error("Incorrect password.");
         }
         const encyptedPassword = passwordEncryption(newPassword);
 

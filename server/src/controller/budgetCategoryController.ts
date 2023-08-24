@@ -16,13 +16,13 @@ export const retrieveBudgetCategory = async (req, res) => {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "Invalid ID format." });
+            throw new Error("Invalid ID format.");
         }
 
         const budgetCategory = await budgetCategoryModel.find({ _id: id });
 
         if (!budgetCategory) {
-            return res.status(400).json({ error: "Unable to find budget category." });
+            throw new Error("Unable to find budget category.");
         }
 
         return res.status(200).json(budgetCategory);
@@ -50,13 +50,13 @@ export const deleteBudgetCategory = async (req, res) => {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "Invalid ID format." });
+            throw new Error("Invalid ID format.");
         }
 
         const budgetCategory = await budgetCategoryModel.findOneAndDelete({ _id: id });
 
         if (!budgetCategory) {
-            return res.status(400).json({ error: "Unable to find budget category." });
+            throw new Error("Unable to find budget category.");
         }
 
         return res.status(200).json(budgetCategory);
@@ -70,7 +70,7 @@ export const updateBudgetCategory = async (req, res) => {
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "Invalid ID format." });
+            throw new Error("Invalid ID format.");
         }
 
         const budgetCategory = await budgetCategoryModel.findOneAndUpdate({ _id: id }, {
@@ -78,7 +78,7 @@ export const updateBudgetCategory = async (req, res) => {
         });
 
         if (!budgetCategory) {
-            return res.status(400).json({ error: "Unable to find budget category." });
+            throw new Error("Unable to find budget category.");
         }
 
         return res.status(200).json(budgetCategory);
