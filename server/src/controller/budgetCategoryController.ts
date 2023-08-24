@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { budgetCategoryModel } from "../model/budgetCategoryModel.js";
+import { ERROR_MESSAGE } from "../config/constrait.js";
 
 export const retrieveAllBudgetCategory = async (req, res) => {
     try {
@@ -16,13 +17,13 @@ export const retrieveBudgetCategory = async (req, res) => {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            throw new Error("Invalid ID format.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.ID_FORMAT_INVALID);
         }
 
         const budgetCategory = await budgetCategoryModel.find({ _id: id });
 
         if (!budgetCategory) {
-            throw new Error("Unable to find budget category.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
         return res.status(200).json(budgetCategory);
@@ -50,13 +51,13 @@ export const deleteBudgetCategory = async (req, res) => {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            throw new Error("Invalid ID format.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.ID_FORMAT_INVALID);
         }
 
         const budgetCategory = await budgetCategoryModel.findOneAndDelete({ _id: id });
 
         if (!budgetCategory) {
-            throw new Error("Unable to find budget category.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
         return res.status(200).json(budgetCategory);
@@ -70,7 +71,7 @@ export const updateBudgetCategory = async (req, res) => {
 
     try {
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            throw new Error("Invalid ID format.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.ID_FORMAT_INVALID);
         }
 
         const budgetCategory = await budgetCategoryModel.findOneAndUpdate({ _id: id }, {
@@ -78,7 +79,7 @@ export const updateBudgetCategory = async (req, res) => {
         });
 
         if (!budgetCategory) {
-            throw new Error("Unable to find budget category.");
+            throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
         return res.status(200).json(budgetCategory);

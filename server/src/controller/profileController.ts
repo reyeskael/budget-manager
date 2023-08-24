@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { profileModel } from "../model/profileModel.js";
 import { Profile } from "../types";
+import { ERROR_MESSAGE } from "../config/constrait.js";
 
 const passwordEncryption = (password) => {
     const saltRounds = 9;
@@ -28,7 +29,7 @@ export const registerProfile = async (req, res) => {
         const { password, username } = profileDetails;
         const isUsernameTaken = await isUsernameExisting(username);
         if (isUsernameTaken) {
-            throw new Error("Username is already taken.");
+            throw new Error(ERROR_MESSAGE.PROFILE.USERNAME_UNAVAILABLE);
         }
         const encyptedPassword = passwordEncryption(password);
 
@@ -48,10 +49,10 @@ export const login = async (req, res, next) => {
         const { username, password } = req.body;
         const profileDetails = await profileModel.find({ username });
         if (profileDetails?.length === 0) {
-            throw new Error("Unable to find username.");
+            throw new Error(ERROR_MESSAGE.PROFILE.USERNAME_NOT_FOUND);
         }
         if (!verifyPassword(password, profileDetails[0].password)) {
-            throw new Error("Incorrect password.");
+            throw new Error(ERROR_MESSAGE.PROFILE.PASSWORD_INCORRECT);
         }
 
         req.profileDetails = {
@@ -70,10 +71,10 @@ export const updatePassword = async (req, res) => {
         const { username, password, newPassword } = req.body;
         const profileDetails = await profileModel.find({ username });
         if (profileDetails?.length === 0) {
-            throw new Error("Unable to find username.");
+            throw new Error(ERROR_MESSAGE.PROFILE.USERNAME_NOT_FOUND);
         }
         if (!verifyPassword(password, profileDetails[0].password)) {
-            throw new Error("Incorrect password.");
+            throw new Error(ERROR_MESSAGE.PROFILE.PASSWORD_INCORRECT);
         }
         const encyptedPassword = passwordEncryption(newPassword);
 
