@@ -5,6 +5,7 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
+import cors from "cors";
 import { budgetCategoryRoute } from "./src/route/budgetCategory.js";
 import { verifyToken } from './src/controller/authenticationController.js';
 import { profileRoute } from './src/route/profile.js';
@@ -18,6 +19,11 @@ app.use(express.json());
 
 // It allows to access the request.cookies
 app.use(cookieParser());
+
+app.use(cors({
+	origin: 'http://localhost:3000',
+	credentials: true // It allows cookies to be sent with requests
+}));
 
 // Middleware - this will run in every request.
 app.use((req, res, next) => {

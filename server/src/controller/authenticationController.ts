@@ -19,6 +19,7 @@ export const verifyToken = (req, res, next) => {
 
         next();
     } catch (error) {
+        res.clearCookie("token");
         res.send({ error: error.message });
     }
 }
