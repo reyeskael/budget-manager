@@ -30,23 +30,6 @@ const LoginPage: React.FC = () => {
 		}
 	}
 
-	async function testApi() {
-		try {
-			const response = await fetch('http://localhost:4000/api/budgetCategory',
-			{
-				method: 'GET',
-				credentials: 'include'
-			});
-			const responseBody = await response.json();
-			if (responseBody?.error) {
-				throw new Error(responseBody.error);
-			}
-			console.log(responseBody);
-		} catch (error: any) {
-			alert(error.message);
-			console.error(error);
-		}
-	}
 	return (
 		<Container maxWidth="xs">
 			<form>
@@ -74,14 +57,6 @@ const LoginPage: React.FC = () => {
 					onClick={login}
 				>
 					Login
-				</Button>
-				<Button
-					variant="contained"
-					color="primary"
-					fullWidth
-					onClick={testApi}
-				>
-					Test API
 				</Button>
 			</form>
 	  </Container>

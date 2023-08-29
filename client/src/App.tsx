@@ -1,11 +1,14 @@
 import './App.css';
 import LoginPage from './page/LoginPage/LoginPage';
+import MainPage from './page/MainPage/MainPage';
+import { Route, Routes } from 'react-router-dom';
 
-function App() {
+const App: React.FC = () => {
 	return (
-		<div className="App">
-			<LoginPage/>
-		</div>
+		<Routes>
+			<Route path="/" element={<MainPage/>} />
+			<Route path="/login" element={<LoginPage/>} />
+		</Routes>
 	);
 }
 
