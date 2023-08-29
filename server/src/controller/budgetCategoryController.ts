@@ -6,9 +6,9 @@ export const retrieveAllBudgetCategory = async (req, res) => {
     try {
         const budgetCategories = await budgetCategoryModel.find({}).sort({createdAt: -1});
 
-        res.status(200).json(budgetCategories);
+        res.status(200).send(budgetCategories);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -26,9 +26,9 @@ export const retrieveBudgetCategory = async (req, res) => {
             throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
-        return res.status(200).json(budgetCategory);
+        return res.status(200).send(budgetCategory);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -40,9 +40,9 @@ export const createBudgetCategory = async (req, res) => {
             code
         });
 
-        res.status(200).json(budgetCategory);
+        res.status(200).send(budgetCategory);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -60,9 +60,9 @@ export const deleteBudgetCategory = async (req, res) => {
             throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
-        return res.status(200).json(budgetCategory);
+        return res.status(200).send(budgetCategory);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -82,8 +82,8 @@ export const updateBudgetCategory = async (req, res) => {
             throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);
         }
 
-        return res.status(200).json(budgetCategory);
+        return res.status(200).send(budgetCategory);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }

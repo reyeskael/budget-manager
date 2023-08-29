@@ -38,9 +38,9 @@ export const registerProfile = async (req, res) => {
             password: encyptedPassword
         });
 
-        res.status(200).json({ success: true });
+        res.status(200).send({ success: true });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -62,7 +62,7 @@ export const login = async (req, res, next) => {
         next();
     } catch (error) {
         res.clearCookie("token");
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }
 
@@ -82,8 +82,8 @@ export const updatePassword = async (req, res) => {
             password: encyptedPassword
         });
 
-        res.status(200).json({ success: true });
+        res.status(200).send({ success: true });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).send({ errorDetails: { message: error.message } });
     }
 }

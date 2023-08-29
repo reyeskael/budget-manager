@@ -1,4 +1,7 @@
 export const ERROR_MESSAGE = {
+    AUTHENTICATION: {
+        TOKEN_NOT_FOUND: "Missing token."
+    },
     PROFILE: {
         PASSWORD_INCORRECT: "Incorrect password.",
         USERNAME_NOT_FOUND: "Unable to find username.",

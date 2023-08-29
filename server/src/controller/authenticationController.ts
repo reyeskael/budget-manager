@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { ERROR_MESSAGE } from "../config/constant.js";
 
 export const getToken = (req, res) => {
     const userDetails = req.profileDetails;
@@ -20,6 +21,10 @@ export const verifyToken = (req, res, next) => {
         next();
     } catch (error) {
         res.clearCookie("token");
-        res.send({ error: error.message });
+        if (error.message === "jwt must be provided") {
+            res.status(400).send({ errorDetails: { message: ERROR_MESSAGE.AUTHENTICATION.TOKEN_NOT_FOUND } });
+        } else {
+            res.status(400).send({ errorDetails: { message: error.message } });
+        }
     }
 }

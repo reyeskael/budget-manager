@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import './LoginPage.css';
 import { Button, Container, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
 	const [ username, setUsername ] = useState("");
 	const [ password, setPassword ] = useState("");
+	const navigate = useNavigate();
 	async function login() {
 		try {
 			const response = await fetch('http://localhost:4000/api/profile/login',
@@ -20,10 +22,13 @@ const LoginPage: React.FC = () => {
 				},
 			});
 			const responseBody = await response.json();
+			console.log(responseBody);
 			if (responseBody?.error) {
 				throw new Error(responseBody.error);
 			}
-			console.log(responseBody);
+			if (responseBody.success) {
+				navigate("/");
+			}
 		} catch (error: any) {
 			alert(error.message);
 			console.error(error);
