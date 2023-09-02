@@ -48,7 +48,6 @@ const MainPage: React.FC = () => {
 
 	return (
 		<Container>
-			<h1>Welcome!</h1>
 			<ListBox items={menuButtonList} onItemClick={onMenuItemClick}/>
 		</Container>
 	);

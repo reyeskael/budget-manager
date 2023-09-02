@@ -6,6 +6,7 @@ import SavingsPage from './page/SavingsPage/SavingsPage';
 import { Route, Routes } from 'react-router-dom';
 import rootReducer from './reducer/rootReducer';
 import { legacy_createStore as createStore } from 'redux';
+import PageHeader from './component/PageHeader/PageHeader';
 
 
 const store = createStore(rootReducer);
@@ -13,6 +14,7 @@ const store = createStore(rootReducer);
 const App: React.FC = () => {
 	return (
 		<Provider store={store}>
+			<PageHeader title="Welcome!"/>
 			<Routes>
 				<Route path="/" element={<MainPage/>} />
 				<Route path="/login" element={<LoginPage/>} />
