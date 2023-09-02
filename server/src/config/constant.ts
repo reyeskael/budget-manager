@@ -1,6 +1,7 @@
 export const ERROR_MESSAGE = {
     AUTHENTICATION: {
-        TOKEN_NOT_FOUND: "Missing token."
+        TOKEN_NOT_FOUND: "Missing token.",
+        TOKEN_EXPIRED: "Token is expired."
     },
     PROFILE: {
         PASSWORD_INCORRECT: "Incorrect password.",

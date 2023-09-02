@@ -23,7 +23,9 @@ export const verifyToken = (req, res, next) => {
         res.clearCookie("token");
         if (error.message === "jwt must be provided") {
             res.status(400).send({ errorDetails: { message: ERROR_MESSAGE.AUTHENTICATION.TOKEN_NOT_FOUND } });
-        } else {
+        } else if (error.message === "jwt expired") {
+            res.status(400).send({ errorDetails: { message: ERROR_MESSAGE.AUTHENTICATION.TOKEN_EXPIRED } });
+        }else {
             res.status(400).send({ errorDetails: { message: error.message } });
         }
     }
