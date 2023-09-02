@@ -9,7 +9,6 @@ import { addLogin } from '../../action/loginAction';
 const LoginPage: React.FC = () => {
 	const [ username, setUsername ] = useState("");
 	const [ password, setPassword ] = useState("");
-	// const loginState: LoginState = useSelector<LoginState>((state) => state);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
