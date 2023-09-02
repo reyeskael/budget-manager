@@ -1,10 +1,28 @@
+import { useState } from 'react';
+import FormWindow from '../../component/FormWindow/FormWindow';
 import './SavingsPage.css';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 
 const SavingsPage: React.FC = () => {
+	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
+
+	function onAddNewSavingsClick() {
+		setIsAddNewSavingsOpen(true);
+	}
+
+	function onCloseAddNewSavingsClick() {
+		setIsAddNewSavingsOpen(false);
+	}
+
 	return (
 		<Container>
-			<h1>Savings</h1>
+			<Button
+				variant="outlined"
+				onClick={onAddNewSavingsClick}
+			>
+				Add New Savings
+			</Button>
+			{ isAddNewSavingsOpen ? <FormWindow onCancelClick={onCloseAddNewSavingsClick} /> : null }
 		</Container>
 	);
 }
