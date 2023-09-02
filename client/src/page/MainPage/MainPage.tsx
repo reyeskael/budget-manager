@@ -11,16 +11,17 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { LoginState } from '../../reducer/loginReducer';
 import { useSelector } from 'react-redux';
+import { MenuType } from '../../types/menuItemTypes';
 
 const MainPage: React.FC = () => {
 	const navigate = useNavigate();
 	const loginState = useSelector<LoginState>((state) => state);
 	const menuButtonList: ListBoxItemProps[] = [
-		{ text: "Savings", icon: <SavingsIcon/> },
-		{ text: "Budgeting", icon: <PaidIcon/> },
-		{ text: "Loans", icon: <CreditScoreIcon/> },
-		{ text: "Transactions", icon: <ReceiptIcon/> },
-		{ text: "Settings", icon: <SettingsIcon/> }
+		{ text: MenuType.SAVINGS, icon: <SavingsIcon/> },
+		{ text: MenuType.BUDGETING, icon: <PaidIcon/> },
+		{ text: MenuType.LOANS, icon: <CreditScoreIcon/> },
+		{ text: MenuType.TRANSACTIONS, icon: <ReceiptIcon/> },
+		{ text: MenuType.SETTINGS, icon: <SettingsIcon/> }
 	];
 	console.log(loginState);
 	async function testApi() {
@@ -29,16 +30,26 @@ const MainPage: React.FC = () => {
 			console.log(response);
 		} catch (error: any) {
 			alert(error.message);
-			if (error.message === "Missing token.") {
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
 				navigate("/login");
 			}
 			console.error(error);
 		}
 	}
+
+	function onMenuItemClick({ text }: ListBoxItemProps) {
+		testApi();
+		switch (text) {
+			case MenuType.SAVINGS:
+				navigate("/savings");
+				break;
+		}
+	}
+
 	return (
 		<Container>
 			<h1>Welcome!</h1>
-			<ListBox items={menuButtonList} onItemClick={(e) => { testApi(); console.log(e) }}/>
+			<ListBox items={menuButtonList} onItemClick={onMenuItemClick}/>
 		</Container>
 	);
 }

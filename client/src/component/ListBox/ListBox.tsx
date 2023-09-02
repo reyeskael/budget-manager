@@ -1,8 +1,9 @@
+import { MenuType } from '../../types/menuItemTypes';
 import './ListBox.css';
 import { Button, Grid } from '@mui/material';
 
 export interface ListBoxItemProps {
-	text: string,
+	text: MenuType,
 	icon?: any
 }
 

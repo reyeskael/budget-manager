@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import ListBox from './ListBox';
-import { MenuType } from '../../types/menuItemTypes';
+import SavingsPage from './SavingsPage';
 
 test('renders learn react link', () => {
-  render(<ListBox items={[{text: MenuType.SAVINGS}]} />);
+  render(<SavingsPage />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import './App.css';
 import LoginPage from './page/LoginPage/LoginPage';
 import MainPage from './page/MainPage/MainPage';
+import SavingsPage from './page/SavingsPage/SavingsPage';
 import { Route, Routes } from 'react-router-dom';
 import rootReducer from './reducer/rootReducer';
 import { legacy_createStore as createStore } from 'redux';
@@ -15,6 +16,7 @@ const App: React.FC = () => {
 			<Routes>
 				<Route path="/" element={<MainPage/>} />
 				<Route path="/login" element={<LoginPage/>} />
+				<Route path="/savings" element={<SavingsPage/>} />
 			</Routes>
 		</Provider>
 	);
