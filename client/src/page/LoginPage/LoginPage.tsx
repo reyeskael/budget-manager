@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './LoginPage.css';
 import { Button, Container, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { getRequest, postRequest } from '../../utils/apiHelper';
+import { postRequest } from '../../utils/apiHelper';
 import { useDispatch } from 'react-redux';
 import { addLogin } from '../../action/loginAction';
 
@@ -11,17 +11,6 @@ const LoginPage: React.FC = () => {
 	const [ password, setPassword ] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		getRequest("/api/token/verifyToken")
-		.then(async (response) => {
-			if (response.success) {
-				navigate("/");
-			}
-		}).catch(error => {
-			console.error(error);
-		});
-	}, []);
 
 	async function login() {
 		try {
