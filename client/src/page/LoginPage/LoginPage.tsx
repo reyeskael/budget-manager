@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './LoginPage.css';
 import { Button, Container, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { getRequest, postRequest } from '../../utils/apiHelper';
 
 const LoginPage: React.FC = () => {
 	const [ username, setUsername ] = useState("");
@@ -9,17 +10,9 @@ const LoginPage: React.FC = () => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch('http://localhost:4000/api/token/verifyToken',
-		{
-			method: 'GET',
-			credentials: 'include'
-		})
+		getRequest("/api/token/verifyToken")
 		.then(async (response) => {
-			const responseBody = await response.json();
-			if (responseBody?.errorDetails) {
-				throw new Error(responseBody.errorDetails.message);
-			}
-			if (responseBody.success) {
+			if (response.success) {
 				navigate("/");
 			}
 		}).catch(error => {
@@ -29,24 +22,8 @@ const LoginPage: React.FC = () => {
 
 	async function login() {
 		try {
-			const response = await fetch('http://localhost:4000/api/profile/login',
-			{
-				method: 'POST',
-				credentials: 'include',
-				body: JSON.stringify({
-					username,
-					password
-				}),
-				headers: {
-				   'Content-type': 'application/json; charset=UTF-8',
-				},
-			});
-			const responseBody = await response.json();
-			console.log(responseBody);
-			if (responseBody?.errorDetails) {
-				throw new Error(responseBody.errorDetails.message);
-			}
-			if (responseBody.success) {
+			const response: any = await postRequest("/api/profile/login", { username, password });
+			if (response.success) {
 				navigate("/");
 			}
 		} catch (error: any) {

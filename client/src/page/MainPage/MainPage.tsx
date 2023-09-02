@@ -1,21 +1,28 @@
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
+import { getRequest } from '../../utils/apiHelper';
+import ListBox, { ListBoxItemProps } from '../../component/ListBox/ListBox';
+
+import SavingsIcon from '@mui/icons-material/Savings';
+import PaidIcon from '@mui/icons-material/Paid';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const MainPage: React.FC = () => {
 	const navigate = useNavigate();
+	const menuButtonList: ListBoxItemProps[] = [
+		{ text: "Savings", icon: <SavingsIcon/> },
+		{ text: "Budgeting", icon: <PaidIcon/> },
+		{ text: "Loans", icon: <CreditScoreIcon/> },
+		{ text: "Transactions", icon: <ReceiptIcon/> },
+		{ text: "Settings", icon: <SettingsIcon/> }
+	];
 	async function testApi() {
 		try {
-			const response = await fetch('http://localhost:4000/api/budgetCategory',
-			{
-				method: 'GET',
-				credentials: 'include'
-			});
-			const responseBody = await response.json();
-			if (responseBody?.errorDetails) {
-				throw new Error(responseBody.errorDetails.message);
-			}
-			console.log(responseBody);
+			const response = await getRequest("/api/budgetCategory");
+			console.log(response);
 		} catch (error: any) {
 			alert(error.message);
 			if (error.message === "Missing token.") {
@@ -25,16 +32,9 @@ const MainPage: React.FC = () => {
 		}
 	}
 	return (
-		<Container maxWidth="xs">
+		<Container>
 			<h1>Welcome Page</h1>
-			<Button
-				variant="contained"
-				color="primary"
-				fullWidth
-				onClick={testApi}
-			>
-				Test API
-			</Button>
+			<ListBox items={menuButtonList} onItemClick={(e) => { testApi(); console.log(e) }}/>
 		</Container>
 	);
 }

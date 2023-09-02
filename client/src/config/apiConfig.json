@@ -1,0 +1,7 @@
+{
+    "localhost": {
+        "protocol": "http",
+        "domain": "localhost",
+        "port": "4000"
+    }
+}
