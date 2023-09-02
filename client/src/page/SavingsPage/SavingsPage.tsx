@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import FormWindow, { FormWindowItemProps } from '../../component/FormWindow/FormWindow';
+import FormWindow, { FormWindowItemProps, FormWindowItemType } from '../../component/FormWindow/FormWindow';
 import './SavingsPage.css';
 import { Button, Container } from '@mui/material';
 
 const SavingsPage: React.FC = () => {
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
 	const addNewSavingsFormItems: FormWindowItemProps[] = [
-		{ label: "Name" },
-		{ label: "Amount" },
-		{ label: "Frequency" },
-		{ label: "Date to finish" }
+		{ type: FormWindowItemType.TEXTFIELD, label: "Name" },
+		{ type: FormWindowItemType.TEXTFIELD, label: "Amount" },
+		{ type: FormWindowItemType.DROPDOWN, label: "Frequency", options: [{ label: "Daily", value: "daily" },{ label: "Weekly", value: "weekly" },{ label: "Monthly", value: "monthly" }] },
+		{ type: FormWindowItemType.DATEPICKER, label: "Date to finish" }
 	];
 
 	function onAddNewSavingsClick() {
