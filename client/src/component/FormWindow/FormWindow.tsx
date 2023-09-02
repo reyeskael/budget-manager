@@ -1,29 +1,33 @@
 import './FormWindow.css';
 import { Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
 
+export interface FormWindowItemProps {
+	label: string
+}
+
 interface FormWindowProps {
+	items: FormWindowItemProps[],
 	onCancelClick?: (e: any) => void
 }
 
-const FormWindow = ({ onCancelClick }: FormWindowProps) => {
+const FormWindow = ({ onCancelClick, items }: FormWindowProps) => {
 	return (
 		<Container className="container">
 			<Paper elevation={3} className="paper">
 				<Typography variant="h5" component="div">
 					Add New Savings
 				</Typography>
-				<TextField
-					label="Name"
-					variant="outlined"
-					className="textField"
-					fullWidth
-				/>
-				<TextField
-					label="Email"
-					variant="outlined"
-					className="textField"
-					fullWidth
-				/>
+				{
+					items.map((item: FormWindowItemProps, index: number) => (
+						<TextField
+							label={item.label}
+							variant="outlined"
+							className="textField"
+							fullWidth
+							key={index}
+						/>
+					))
+				}
 				<Button
 					type="submit"
 					variant="contained"

@@ -1,10 +1,16 @@
 import { useState } from 'react';
-import FormWindow from '../../component/FormWindow/FormWindow';
+import FormWindow, { FormWindowItemProps } from '../../component/FormWindow/FormWindow';
 import './SavingsPage.css';
 import { Button, Container } from '@mui/material';
 
 const SavingsPage: React.FC = () => {
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
+	const addNewSavingsFormItems: FormWindowItemProps[] = [
+		{ label: "Name" },
+		{ label: "Amount" },
+		{ label: "Frequency" },
+		{ label: "Date to finish" }
+	];
 
 	function onAddNewSavingsClick() {
 		setIsAddNewSavingsOpen(true);
@@ -22,7 +28,7 @@ const SavingsPage: React.FC = () => {
 			>
 				Add New Savings
 			</Button>
-			{ isAddNewSavingsOpen ? <FormWindow onCancelClick={onCloseAddNewSavingsClick} /> : null }
+			{ isAddNewSavingsOpen ? <FormWindow items={addNewSavingsFormItems} onCancelClick={onCloseAddNewSavingsClick} /> : null }
 		</Container>
 	);
 }
