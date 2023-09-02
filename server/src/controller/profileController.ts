@@ -66,6 +66,11 @@ export const login = async (req, res, next) => {
     }
 }
 
+export const logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).send({ success: true });
+}
+
 export const updatePassword = async (req, res) => {
     try {
         const { username, password, newPassword } = req.body;

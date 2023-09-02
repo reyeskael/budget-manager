@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { postRequest } from '../../utils/apiHelper';
 
 interface PageHeaderProps {
 	title: string
@@ -24,6 +25,11 @@ const PageHeader = ({title}: PageHeaderProps) => {
 		}
 	}
 
+	async function onLogoutClick() {
+		await postRequest("/api/profile/logout", {});
+		navigate("/login");
+	}
+
 	return (
 		<AppBar position="static" className='pageHeader'>
 			<Toolbar>
@@ -40,7 +46,7 @@ const PageHeader = ({title}: PageHeaderProps) => {
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					{title}
 				</Typography>
-				{ isHomePage ? <Button color="inherit">Logout</Button> : null }
+				{ isHomePage ? <Button color="inherit" onClick={onLogoutClick}>Logout</Button> : null }
 			</Toolbar>
 		</AppBar>
 	);
