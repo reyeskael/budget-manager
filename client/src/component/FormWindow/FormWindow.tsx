@@ -29,10 +29,14 @@ export interface DropDownOptionProps {
 	value: string
 }
 
+export interface FormWindowSubmitEvent {
+	data: FormData
+}
+
 interface FormWindowProps {
 	items: FormWindowItemProps[],
 	onCancelClick?: (e: any) => void,
-	onSubmit?: (e: any) => void
+	onSubmit?: (e: FormWindowSubmitEvent) => void
 }
 
 const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {

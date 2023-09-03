@@ -57,7 +57,7 @@ const SelectableList = ({items}: SelectableListProps) => {
 						>
 							<ListItemText primary={item.name} />
 						</ListItem>
-						<Divider key={`${index}-divider`}/>
+						<Divider key={`${index}-2`}/>
 					</>
 				))
 			}
