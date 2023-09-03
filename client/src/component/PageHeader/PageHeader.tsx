@@ -7,10 +7,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { postRequest } from '../../utils/apiHelper';
 
 interface PageHeaderProps {
-	title: string
+	title: string,
+	onMenuToggle?: () => void
 }
 
-const PageHeader = ({title}: PageHeaderProps) => {
+const PageHeader = ({title, onMenuToggle}: PageHeaderProps) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [isHomePage, setIsHomePage] = useState(false);
@@ -19,7 +20,7 @@ const PageHeader = ({title}: PageHeaderProps) => {
 		setIsHomePage(location.pathname === "/");
 	}, [location.pathname]);
 
-	function onIconClick() {
+	function onBackIconClick() {
 		if (!isHomePage) {
 			navigate("/");
 		}
@@ -39,7 +40,7 @@ const PageHeader = ({title}: PageHeaderProps) => {
 					color="inherit"
 					aria-label="menu"
 					sx={{ mr: 2 }}
-					onClick={onIconClick}
+					onClick={isHomePage ? onMenuToggle : onBackIconClick}
 				>
 					{ isHomePage ? <MenuIcon /> : <KeyboardBackspaceIcon /> }
 				</IconButton>
