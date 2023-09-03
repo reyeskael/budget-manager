@@ -2,7 +2,7 @@ import './SelectableList.css';
 import { Divider, IconButton, InputAdornment, List, ListItem, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface SelectableListProps {
 	items?: any[]
