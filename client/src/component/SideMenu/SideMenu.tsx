@@ -34,7 +34,7 @@ const SideMenu = ({ isOpen, onToggleDrawer }: SideMenuProps) => {
 					<ListItemIcon>
 						<CategoryIcon />
 					</ListItemIcon>
-					<ListItemText primary="Item Categories" />
+					<ListItemText primary="Budget Categories" />
 				</ListItem>
 				<ListItem onClick={onToggleDrawer}>
 					<ListItemIcon>
