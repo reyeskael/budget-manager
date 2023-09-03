@@ -4,6 +4,7 @@ import InsightsIcon from '@mui/icons-material/Insights';
 import CategoryIcon from '@mui/icons-material/Category';
 import SettingsIcon from '@mui/icons-material/Settings';
 import './SideMenu.css';
+import { useNavigate } from 'react-router-dom';
 
 interface SideMenuProps {
 	isOpen?: boolean,
@@ -11,6 +12,14 @@ interface SideMenuProps {
 }
 
 const SideMenu = ({ isOpen, onToggleDrawer }: SideMenuProps) => {
+	const navigate = useNavigate();
+
+	function onBudgetCategoriesClick(e: any) {
+		if (onToggleDrawer) {
+			onToggleDrawer(e);
+		}
+		navigate("/budgetCategory");
+	}
 	return (
 		<Drawer anchor="left" open={isOpen} onClose={onToggleDrawer}
 			PaperProps={{
@@ -30,7 +39,7 @@ const SideMenu = ({ isOpen, onToggleDrawer }: SideMenuProps) => {
 					</ListItemIcon>
 					<ListItemText primary="Profile" />
 				</ListItem>
-				<ListItem onClick={onToggleDrawer}>
+				<ListItem onClick={onBudgetCategoriesClick}>
 					<ListItemIcon>
 						<CategoryIcon />
 					</ListItemIcon>

@@ -10,6 +10,7 @@ import PageHeader from './component/PageHeader/PageHeader';
 import { useEffect, useState } from 'react';
 import { getRequest } from './utils/apiHelper';
 import SideMenu from './component/SideMenu/SideMenu';
+import BudgetCategoryPage from './page/BudgetCategoryPage/BudgetCategoryPage';
 
 
 const store = createStore(rootReducer);
@@ -43,6 +44,7 @@ const App: React.FC = () => {
 				<Route path="/" element={<MainPage/>} />
 				<Route path="/login" element={<LoginPage/>} />
 				<Route path="/savings" element={<SavingsPage/>} />
+				<Route path="/budgetCategory" element={<BudgetCategoryPage/>} />
 			</Routes>
 			
 			<SideMenu isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
