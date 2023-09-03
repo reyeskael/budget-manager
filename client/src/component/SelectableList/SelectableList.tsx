@@ -9,8 +9,12 @@ interface SelectableListProps {
 }
 
 const SelectableList = ({items}: SelectableListProps) => {
-	const [ searchText, setSearchText ] = useState("");
 	const [ searchedItem, setSearchedItem ] = useState(items || []);
+	const [ searchText, setSearchText ] = useState("");
+
+	useEffect(() => {
+		setSearchedItem(items || []);
+	}, [items]);
 
 	useEffect(() => {
 		const filterItems: any[] = items?.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase())) || [];
@@ -53,7 +57,7 @@ const SelectableList = ({items}: SelectableListProps) => {
 						>
 							<ListItemText primary={item.name} />
 						</ListItem>
-						<Divider key={`${index}-2`}/>
+						<Divider key={`${index}-divider`}/>
 					</>
 				))
 			}
