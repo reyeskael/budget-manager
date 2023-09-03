@@ -24,3 +24,7 @@
 .button {
     margin: 8px !important;
 }
+
+.MuiContainer-root {
+    max-width: 100% !important;
+}
