@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import FormWindow from './FormWindow';
+import ListBox from './ConfirmationBox';
 
 test('renders learn react link', () => {
-  render(<FormWindow title="" items={[]}/>);
+  render(<ListBox open={true} title="Test title" text="Test text" />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

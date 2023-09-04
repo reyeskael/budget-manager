@@ -9,16 +9,19 @@ const SavingsPage: React.FC = () => {
 		{
 			type: FormWindowItemType.TEXTFIELD,
 			label: "Name",
+			key: "name",
 			required: true
 		},
 		{
 			type: FormWindowItemType.TEXTFIELD,
 			label: "Amount",
+			key: "amount",
 			required: true
 		},
 		{
 			type: FormWindowItemType.DROPDOWN,
 			label: "Frequency",
+			key: "frequency",
 			required: true,
 			options: [
 				{
@@ -38,6 +41,7 @@ const SavingsPage: React.FC = () => {
 		{
 			type: FormWindowItemType.DATEPICKER,
 			label: "Date to finish",
+			key: "dateToFinish",
 			required: true
 		}
 	];
@@ -58,7 +62,15 @@ const SavingsPage: React.FC = () => {
 			>
 				Add New Savings
 			</Button>
-			{ isAddNewSavingsOpen ? <FormWindow items={addNewSavingsFormItems} onCancelClick={onCloseAddNewSavingsClick} /> : null }
+			{
+				isAddNewSavingsOpen ?
+				<FormWindow 
+					title="Add New Savings"
+					items={addNewSavingsFormItems}
+					onCancelClick={onCloseAddNewSavingsClick}
+				/> :
+				null
+			}
 		</Container>
 	);
 }

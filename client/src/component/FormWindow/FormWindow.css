@@ -28,3 +28,7 @@
 .MuiContainer-root {
     max-width: 100% !important;
 }
+
+.deleteButton {
+    position: absolute;
+}

@@ -34,3 +34,21 @@ export const postRequest = async (route: string, body: any) => {
 
     return responseBody;
 }
+
+export const patchRequest = async (route: string, _id: string, body: any) => {
+    const response = await fetch(`${protocol}://${domain}:${port}${route}/${_id}`,
+    {
+        method: Method.PATCH,
+        credentials: 'include',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    const responseBody = await response.json();
+    if (responseBody?.errorDetails) {
+        throw new Error(responseBody.errorDetails.message);
+    }
+
+    return responseBody;
+}

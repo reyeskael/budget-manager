@@ -20,7 +20,8 @@ export interface FormData {
 export interface FormWindowItemProps {
 	type: FormWindowItemType,
 	required?: boolean,
-	label: string
+	label: string,
+	key: string,
 	options?: DropDownOptionProps[]
 }
 
@@ -34,47 +35,49 @@ export interface FormWindowSubmitEvent {
 }
 
 interface FormWindowProps {
+	title: string,
 	items: FormWindowItemProps[],
+	edit?: boolean,
+	editValue?: FormData,
 	onCancelClick?: (e: any) => void,
 	onSubmit?: (e: FormWindowSubmitEvent) => void
 }
 
-const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
-	const [ formData, setFormData ] = useState<FormData>({});
+const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onSubmit }: FormWindowProps) => {
+	const [ formData, setFormData ] = useState<FormData>(editValue || {});
 
 	function onFormChange(e: any) {
-		console.log(e);
 		if (e?.formData) {
 			let currentFormData: FormData = {};
-			currentFormData[e.formData.label] = {
-				value: e.formData.value
-			};
+			currentFormData[e.formData.key] = e.formData.value;
 			setFormData({ ...formData, ...currentFormData });
 		}
 	}
 
-	function onFormDateChange(date: any, label: string) {
+	function onFormDateChange(date: any, { label, key }: FormWindowItemProps) {
 		const formData = {
 			value: date,
-			label: label
+			label,
+			key
 		}
 		onFormChange({ formData });
 	}
 
-	function onFormTextChange(e: any) {
-		const label = e.target.labels[0].innerText.replace(" *", "");
+	function onFormTextChange(e: any, { label, key }: FormWindowItemProps) {
 		const formData = {
 			value: e.target.value,
-			label: label
+			label,
+			key
 		}
 		e["formData"] = formData;
 		onFormChange(e);
 	}
 
-	function onFormOptionChange(e: any, label: string) {
+	function onFormOptionChange(e: any, { label, key }: FormWindowItemProps) {
 		const formData = {
 			value: e.target.value,
-			label: label
+			label,
+			key
 		}
 		e["formData"] = formData;
 		onFormChange(e);
@@ -87,7 +90,6 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 				data: formData
 			});
 		}
-		console.log(formData);
 	}
 
 	function renderFormWindowFields(itemDetails: FormWindowItemProps, index: number) {
@@ -108,8 +110,8 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<DatePicker
 					label={itemDetails.label}
-					value={formData?.[itemDetails.label]?.value || null}
-					onChange={(date) => onFormDateChange(date, itemDetails.label)}
+					value={formData?.[itemDetails.key] || null}
+					onChange={(date) => onFormDateChange(date, itemDetails)}
 					slotProps={{ textField: { variant: 'outlined', fullWidth: true, key: index, required: itemDetails.required} }}
 				/>
 			</LocalizationProvider>
@@ -123,8 +125,8 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 				labelId="input-label"
 				label={itemDetails.label}
 				variant="outlined"
-				value={formData?.[itemDetails.label]?.value || ""}
-				onChange={(e) => onFormOptionChange(e, itemDetails.label)}
+				value={formData?.[itemDetails.key] || ""}
+				onChange={(e) => onFormOptionChange(e, itemDetails)}
 			>
 				{
 					itemDetails?.options?.map((item: DropDownOptionProps, index: number) => (
@@ -146,8 +148,8 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 				label={itemDetails.label}
 				variant="outlined"
 				required={itemDetails.required || false}
-				value={formData?.[itemDetails.label]?.value || ""}
-				onChange={onFormTextChange}
+				value={formData?.[itemDetails.key] || ""}
+				onChange={(e) => onFormTextChange(e, itemDetails)}
 			/>
 		</FormControl>
 	}
@@ -156,7 +158,7 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 		<Container className="container">
 			<Paper elevation={3} className="paper">
 				<Typography variant="h5" component="div">
-					Add New Savings
+					{title}
 				</Typography>
 				<form onSubmit={onFormSubmit}>
 					{
@@ -170,6 +172,18 @@ const FormWindow = ({ onCancelClick, onSubmit, items }: FormWindowProps) => {
 					>
 						Save
 					</Button>
+
+					{
+						edit ?
+						<Button
+							type="submit"
+							variant="contained"
+							className="button"
+							color="primary"
+						>
+							Delete
+						</Button> : null
+					}
 					<Button
 						variant="contained"
 						className="button"

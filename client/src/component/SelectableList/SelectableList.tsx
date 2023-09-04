@@ -5,10 +5,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from 'react';
 
 interface SelectableListProps {
-	items?: any[]
+	items?: any[],
+	onItemSelected?: (e: any) => void
 }
 
-const SelectableList = ({items}: SelectableListProps) => {
+const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 	const [ searchedItem, setSearchedItem ] = useState(items || []);
 	const [ searchText, setSearchText ] = useState("");
 
@@ -23,6 +24,12 @@ const SelectableList = ({items}: SelectableListProps) => {
 
 	function onSearchChange(e: any) {
 		setSearchText(e.target.value);
+	}
+
+	function onItemClick(e: any) {
+		if (onItemSelected) {
+			onItemSelected(e);
+		}
 	}
 
 	return (
@@ -49,6 +56,7 @@ const SelectableList = ({items}: SelectableListProps) => {
 						<ListItem
 							key={index}
 							disableGutters
+							onClick={() => onItemClick(item)}
 							secondaryAction={
 								<IconButton>
 									<ArrowForwardIosIcon/>
