@@ -33,7 +33,6 @@ export const pageContainer: SxProps = {
 }
 
 export const footerNavigation: SxProps = {
-    bgcolor: `${customTheme.palette.info.main}`,
     height: "6vh",
     padding: "0px"
 }
