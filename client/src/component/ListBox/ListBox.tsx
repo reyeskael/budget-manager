@@ -14,7 +14,7 @@ interface ListBoxProps {
 
 const ListBox = ({items, onItemClick}: ListBoxProps) => {
 	return (
-		<Grid container spacing={2} columns={{xs: 4, sm: 8, md: 12}}>
+		<Grid container className="listBoxGrid" spacing={2} columns={{xs: 4, sm: 8, md: 12}}>
 			{
 				items.map((item: ListBoxItemProps, index: number) => (
 					<Grid item key={index} xs={2} sm={4} md={4}>

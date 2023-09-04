@@ -1,3 +1,14 @@
 body {
     margin: 0px !important;
 }
+
+.pageContainerWithHeader {
+    height: 87vh;
+}
+
+.buttonFooter {
+    position: 'absolute';
+    bottom: '7vh';
+    left: '50%';
+    transform: 'translate(-50%, -50%)';
+}

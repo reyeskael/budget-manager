@@ -2,10 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import SelectableList from '../../component/SelectableList/SelectableList';
 import { deleteRequest, getRequest, patchRequest, postRequest } from '../../utils/apiHelper';
 import './BudgetCategoryPage.css';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Fab } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
 import ConfirmationBox from '../../component/ConfirmationBox/ConfirmationBox';
+import { footerButton } from '../../utils/cosmeticsHelper';
 
 const BudgetCategoryPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -144,14 +145,8 @@ const BudgetCategoryPage: React.FC = () => {
 	}
 
 	return (
-		<Container>
+		<Container className="pageContainerWithHeader">
 			<SelectableList onItemSelected={onEditBudgetCategoryClick} items={budgetCategories}/>
-			<Button
-				variant="outlined"
-				onClick={onAddNewBudgetCategoryClick}
-			>
-				Add Budget Category
-			</Button>
 			{
 				isAddNewBudgetCategoryOpen ?
 				<FormWindow
@@ -181,6 +176,14 @@ const BudgetCategoryPage: React.FC = () => {
 				text="Are you sure you want to delete this data?"
 				onActionClick={onActionClick}
 			/>
+			<Button
+				sx = {footerButton}
+				onClick={onAddNewBudgetCategoryClick}
+				variant="outlined"
+				color="primary"
+			>
+				Add Budget Category
+			</Button>
 		</Container>
 	);
 }

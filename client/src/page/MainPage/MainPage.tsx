@@ -47,7 +47,7 @@ const MainPage: React.FC = () => {
 	}
 
 	return (
-		<Container>
+		<Container className="pageContainerWithHeader">
 			<ListBox items={menuButtonList} onItemClick={onMenuItemClick}/>
 		</Container>
 	);

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { getRequest } from './utils/apiHelper';
 import SideMenu from './component/SideMenu/SideMenu';
 import BudgetCategoryPage from './page/BudgetCategoryPage/BudgetCategoryPage';
+import FooterNavigation from './component/FooterNavigation/FooterNavigation';
 
 
 const store = createStore(rootReducer);
@@ -46,7 +47,7 @@ const App: React.FC = () => {
 				<Route path="/savings" element={<SavingsPage/>} />
 				<Route path="/budgetCategory" element={<BudgetCategoryPage/>} />
 			</Routes>
-			
+			{isLoginPage ? null : <FooterNavigation/>}
 			<SideMenu isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
 		</Provider>
 	);
