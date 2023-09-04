@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import SelectableList from '../../component/SelectableList/SelectableList';
-import { getRequest, patchRequest, postRequest } from '../../utils/apiHelper';
+import { deleteRequest, getRequest, patchRequest, postRequest } from '../../utils/apiHelper';
 import './BudgetCategoryPage.css';
 import { Button, Container } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ const BudgetCategoryPage: React.FC = () => {
 	const [ isAddNewBudgetCategoryOpen, setIsAddNewBudgetCategoryOpen ] = useState(false);
 	const [ isEditBudgetCategoryOpen, setIsEditBudgetCategoryOpen ] = useState(false);
 	const [ isDeleteConfirmationOpen, setIsDeleteConfirmationOpen ] = useState(false);
-	const [ selectedBudgetCategory, setSelectedBudgetCategory ] = useState({});
+	const [ selectedBudgetCategory, setSelectedBudgetCategory ] = useState<any | null>(null);
 	const newBudgetCategoryFormItems: FormWindowItemProps[] = [
 		{
 			type: FormWindowItemType.TEXTFIELD,
@@ -75,6 +75,20 @@ const BudgetCategoryPage: React.FC = () => {
 		}
 	}
 
+	async function deleteBudgetCategory(_id: string) {
+		try {
+			const response = await deleteRequest("/api/budgetCategory", _id);
+			getBudgetCategory();
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
+
 	function onAddNewBudgetCategoryClick() {
 		setIsAddNewBudgetCategoryOpen(true);
 	}
@@ -96,6 +110,11 @@ const BudgetCategoryPage: React.FC = () => {
 		setSelectedBudgetCategory(e);
 	}
 
+	function onDeleteEditBudgetCategoryClick(e: any) {
+		console.log(e);
+		setIsDeleteConfirmationOpen(true);
+	}
+
 	function onCloseEditBudgetCategoryClick() {
 		setIsEditBudgetCategoryOpen(false);
 	}
@@ -110,7 +129,18 @@ const BudgetCategoryPage: React.FC = () => {
 	}
 
 	function onActionClick(e: any) {
-		setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen);
+		console.log(e);
+		switch(e.value) {
+			case "no":
+				setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen);
+				break;
+			case "yes":
+				const id: string = selectedBudgetCategory._id;
+				deleteBudgetCategory(id);
+				setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen);
+				setIsEditBudgetCategoryOpen(false);
+
+		}
 	}
 
 	return (
@@ -140,6 +170,7 @@ const BudgetCategoryPage: React.FC = () => {
 					editValue={selectedBudgetCategory}
 					items={newBudgetCategoryFormItems}
 					onSubmit={onEditBudgetCategorySubmit}
+					onDeleteClick={onDeleteEditBudgetCategoryClick}
 					onCancelClick={onCloseEditBudgetCategoryClick}
 				/> :
 				null

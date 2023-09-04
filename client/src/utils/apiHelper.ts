@@ -52,3 +52,17 @@ export const patchRequest = async (route: string, _id: string, body: any) => {
 
     return responseBody;
 }
+
+export const deleteRequest = async (route: string, _id: string) => {
+    const response = await fetch(`${protocol}://${domain}:${port}${route}/${_id}`,
+    {
+        method: Method.DELETE,
+        credentials: 'include'
+    });
+    const responseBody = await response.json();
+    if (responseBody?.errorDetails) {
+        throw new Error(responseBody.errorDetails.message);
+    }
+
+    return responseBody;
+}

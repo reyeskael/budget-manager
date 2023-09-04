@@ -38,12 +38,13 @@ interface FormWindowProps {
 	title: string,
 	items: FormWindowItemProps[],
 	edit?: boolean,
-	editValue?: FormData,
+	editValue?: FormData | null,
 	onCancelClick?: (e: any) => void,
+	onDeleteClick?: (e: any) => void,
 	onSubmit?: (e: FormWindowSubmitEvent) => void
 }
 
-const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onSubmit }: FormWindowProps) => {
+const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onDeleteClick, onSubmit }: FormWindowProps) => {
 	const [ formData, setFormData ] = useState<FormData>(editValue || {});
 
 	function onFormChange(e: any) {
@@ -87,6 +88,14 @@ const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onSu
 		e.preventDefault();
 		if (onSubmit) {
 			onSubmit({
+				data: formData
+			});
+		}
+	}
+
+	function onFormDeleteClick() {
+		if (onDeleteClick) {
+			onDeleteClick({
 				data: formData
 			});
 		}
@@ -176,10 +185,11 @@ const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onSu
 					{
 						edit ?
 						<Button
-							type="submit"
+							type="button"
 							variant="contained"
 							className="button"
 							color="primary"
+							onClick={onFormDeleteClick}
 						>
 							Delete
 						</Button> : null
