@@ -197,6 +197,7 @@ const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onDe
 					<Button
 						variant="contained"
 						className="button"
+						color="secondary"
 						onClick={onCancelClick}
 					>
 						Cancel

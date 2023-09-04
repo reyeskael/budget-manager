@@ -12,6 +12,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { LoginState } from '../../reducer/loginReducer';
 import { useSelector } from 'react-redux';
 import { MenuType } from '../../types/menuItemTypes';
+import { pageContainer } from '../../utils/cosmeticsHelper';
 
 const MainPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -47,7 +48,7 @@ const MainPage: React.FC = () => {
 	}
 
 	return (
-		<Container className="pageContainerWithHeader">
+		<Container className="pageContainerWithHeader" sx={pageContainer}>
 			<ListBox items={menuButtonList} onItemClick={onMenuItemClick}/>
 		</Container>
 	);

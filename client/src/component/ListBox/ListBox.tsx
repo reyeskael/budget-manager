@@ -19,9 +19,10 @@ const ListBox = ({items, onItemClick}: ListBoxProps) => {
 				items.map((item: ListBoxItemProps, index: number) => (
 					<Grid item key={index} xs={2} sm={4} md={4}>
 						<Button
-							variant="outlined"
+							variant="contained"
 							className="iconOnTopButton"
 							fullWidth
+							color="secondary"
 							onClick={() => {
 								if (onItemClick) onItemClick(item);
 							}}

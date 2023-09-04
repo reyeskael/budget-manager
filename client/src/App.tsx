@@ -12,6 +12,8 @@ import { getRequest } from './utils/apiHelper';
 import SideMenu from './component/SideMenu/SideMenu';
 import BudgetCategoryPage from './page/BudgetCategoryPage/BudgetCategoryPage';
 import FooterNavigation from './component/FooterNavigation/FooterNavigation';
+import { ThemeProvider } from '@mui/material';
+import { customTheme } from './utils/cosmeticsHelper';
 
 
 const store = createStore(rootReducer);
@@ -40,15 +42,17 @@ const App: React.FC = () => {
 
 	return (
 		<Provider store={store}>
-			{isLoginPage ? null : <PageHeader onMenuToggle={onToggleDrawer} title="Welcome!" />}
-			<Routes>
-				<Route path="/" element={<MainPage/>} />
-				<Route path="/login" element={<LoginPage/>} />
-				<Route path="/savings" element={<SavingsPage/>} />
-				<Route path="/budgetCategory" element={<BudgetCategoryPage/>} />
-			</Routes>
-			{isLoginPage ? null : <FooterNavigation/>}
-			<SideMenu isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
+			<ThemeProvider theme={customTheme}>
+				{isLoginPage ? null : <PageHeader onMenuToggle={onToggleDrawer} title="Welcome!" />}
+				<Routes>
+					<Route path="/" element={<MainPage/>} />
+					<Route path="/login" element={<LoginPage/>} />
+					<Route path="/savings" element={<SavingsPage/>} />
+					<Route path="/budgetCategory" element={<BudgetCategoryPage/>} />
+				</Routes>
+				{isLoginPage ? null : <FooterNavigation/>}
+				<SideMenu isOpen={isOpen} onToggleDrawer={onToggleDrawer} />
+			</ThemeProvider>
 		</Provider>
 	);
 }

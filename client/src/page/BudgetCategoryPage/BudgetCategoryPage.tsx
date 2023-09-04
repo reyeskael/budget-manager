@@ -6,7 +6,7 @@ import { Button, Container, Fab } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
 import ConfirmationBox from '../../component/ConfirmationBox/ConfirmationBox';
-import { footerButton } from '../../utils/cosmeticsHelper';
+import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
 
 const BudgetCategoryPage: React.FC = () => {
 	const navigate = useNavigate();
@@ -145,7 +145,7 @@ const BudgetCategoryPage: React.FC = () => {
 	}
 
 	return (
-		<Container className="pageContainerWithHeader">
+		<Container className="pageContainerWithHeader" sx={pageContainer}>
 			<SelectableList onItemSelected={onEditBudgetCategoryClick} items={budgetCategories}/>
 			{
 				isAddNewBudgetCategoryOpen ?
@@ -179,8 +179,8 @@ const BudgetCategoryPage: React.FC = () => {
 			<Button
 				sx = {footerButton}
 				onClick={onAddNewBudgetCategoryClick}
-				variant="outlined"
-				color="primary"
+				variant="contained"
+				color="secondary"
 			>
 				Add Budget Category
 			</Button>

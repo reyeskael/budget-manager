@@ -3,7 +3,7 @@ import FormWindow, { FormWindowItemProps, FormWindowItemType } from '../../compo
 import './SavingsPage.css';
 import { Button, Container } from '@mui/material';
 import SelectableList from '../../component/SelectableList/SelectableList';
-import { footerButton } from '../../utils/cosmeticsHelper';
+import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
 
 const SavingsPage: React.FC = () => {
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
@@ -57,7 +57,7 @@ const SavingsPage: React.FC = () => {
 	}
 
 	return (
-		<Container className="pageContainerWithHeader">
+		<Container className="pageContainerWithHeader" sx={pageContainer}>
 			<SelectableList items={[]}/>
 			{
 				isAddNewSavingsOpen ?
@@ -71,8 +71,8 @@ const SavingsPage: React.FC = () => {
 			<Button
 				sx = {footerButton}
 				onClick={onAddNewSavingsClick}
-				variant="outlined"
-				color="primary"
+				variant="contained"
+				color="secondary"
 			>
 				Add New Savings
 			</Button>

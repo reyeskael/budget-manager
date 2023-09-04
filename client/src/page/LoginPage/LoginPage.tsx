@@ -6,6 +6,7 @@ import { postRequest } from '../../utils/apiHelper';
 import { useDispatch } from 'react-redux';
 import { addLogin } from '../../action/loginAction';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { pageContainer } from '../../utils/cosmeticsHelper';
 
 const LoginPage: React.FC = () => {
 	const [ username, setUsername ] = useState("");
@@ -32,7 +33,7 @@ const LoginPage: React.FC = () => {
 	}
 
 	return (
-		<Container maxWidth="xs">
+		<Container maxWidth="xs" sx={pageContainer}>
 			<Box className="loginPage">
 				<form>
 					<TextField
