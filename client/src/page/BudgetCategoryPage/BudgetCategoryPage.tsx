@@ -135,8 +135,8 @@ const BudgetCategoryPage: React.FC = () => {
 				setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen);
 				break;
 			case "yes":
-				const id: string = selectedBudgetCategory._id;
-				deleteBudgetCategory(id);
+				const _id: string = selectedBudgetCategory._id;
+				deleteBudgetCategory(_id);
 				setIsDeleteConfirmationOpen(!isDeleteConfirmationOpen);
 				setIsEditBudgetCategoryOpen(false);
 
