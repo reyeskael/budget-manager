@@ -11,5 +11,9 @@ export const ERROR_MESSAGE = {
     BUDGET_CATEGORY: {
         ID_FORMAT_INVALID: "Invalid ID format.",
         NOT_FOUND: "Unable to find budget category."
+    },
+    SAVINGS: {
+        ID_FORMAT_INVALID: "Invalid ID format.",
+        NOT_FOUND: "Unable to find savings."
     }
 };
