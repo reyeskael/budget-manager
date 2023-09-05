@@ -34,10 +34,10 @@ export const retrieveBudgetCategory = async (req, res) => {
 
 export const createBudgetCategory = async (req, res) => {
     try {
-        const { name, code } = req.body;
+        const { profileId } = req;
         const budgetCategory = await budgetCategoryModel.create({
-            name,
-            code
+            ...req.body,
+            profileId
         });
 
         res.status(200).send(budgetCategory);
@@ -74,9 +74,7 @@ export const updateBudgetCategory = async (req, res) => {
             throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.ID_FORMAT_INVALID);
         }
 
-        const budgetCategory = await budgetCategoryModel.findOneAndUpdate({ _id: id }, {
-            ...req.body
-        });
+        const budgetCategory = await budgetCategoryModel.findOneAndUpdate({ _id: id }, req.body);
 
         if (!budgetCategory) {
             throw new Error(ERROR_MESSAGE.BUDGET_CATEGORY.NOT_FOUND);

@@ -7,7 +7,7 @@ const budgetCategorySchema = new Schema({
         type: String,
         required: true
     },
-    code: {
+    profileId: {
         type: String,
         required: true
     }

@@ -57,7 +57,8 @@ export const login = async (req, res, next) => {
 
         req.profileDetails = {
             name: profileDetails[0].name,
-            username: profileDetails[0].username
+            username: profileDetails[0].username,
+            _id: profileDetails[0]._id
         };
         next();
     } catch (error) {

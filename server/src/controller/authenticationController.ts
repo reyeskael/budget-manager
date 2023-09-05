@@ -16,8 +16,10 @@ export const getToken = (req, res) => {
 export const verifyToken = (req, res, next) => {
     try {
         const { token } = req.cookies;
-        jwt.verify(token, process.env.MY_SECRET);
+        const decoded = jwt.verify(token, process.env.MY_SECRET);
 
+        console.log(decoded);
+        req.profileId = decoded._id;
         next();
     } catch (error) {
         res.clearCookie("token");
