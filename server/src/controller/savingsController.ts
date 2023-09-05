@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { savingsModel } from "../model/savingsModel.js";
+import { savingsModel, savingsTransactionModel } from "../model/savingsModel.js";
 import { ERROR_MESSAGE } from "../config/constant.js";
 
 export const retrieveAllSavings = async (req, res) => {
@@ -81,12 +81,8 @@ export const updateSavings = async (req, res) => {
             throw new Error(ERROR_MESSAGE.SAVINGS.ID_FORMAT_INVALID);
         }
 
-        const { dateToFinish } = req.body;
-        const parsedDateToFinish = new Date(dateToFinish);
-
         const savings = await savingsModel.findOneAndUpdate({ _id: id, profileId }, {
-            ...req.body,
-            dateToFinish: parsedDateToFinish
+            ...req.body
         });
 
         if (!savings) {
@@ -94,6 +90,41 @@ export const updateSavings = async (req, res) => {
         }
 
         return res.status(200).send(savings);
+    } catch (error) {
+        res.status(400).send({ errorDetails: { message: error.message } });
+    }
+}
+
+export const retrieveAllSavingsTransactions = async (req, res) => {
+    try {
+        const { profileId } = req;
+        const { savingsId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(savingsId)) {
+            throw new Error(ERROR_MESSAGE.SAVINGS.ID_FORMAT_INVALID);
+        }
+
+        const savings = await savingsTransactionModel.find({ savingsId, profileId });
+
+        if (!savings) {
+            throw new Error(ERROR_MESSAGE.SAVINGS.NOT_FOUND);
+        }
+
+        return res.status(200).send(savings);
+    } catch (error) {
+        res.status(400).send({ errorDetails: { message: error.message } });
+    }
+}
+
+export const createSavingsTransactions = async (req, res) => {
+    try {
+        const { profileId } = req;
+        const savings = await savingsModel.create({
+            ...req.body,
+            profileId
+        });
+
+        res.status(200).send(savings);
     } catch (error) {
         res.status(400).send({ errorDetails: { message: error.message } });
     }

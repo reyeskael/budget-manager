@@ -1,11 +1,13 @@
 import './SavingsDetailsPage.css';
-import { Button, Container } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../reducer/rootReducer';
 import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
-import SavingsDetailsCard from './SavingsDetailsCard/SavingsDetailsCard';
+import SavingsDetailsCard from './components/SavingsDetailsCard/SavingsDetailsCard';
 import { useState } from 'react';
 import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
+import SavingsGoalCard from './components/SavingsGoalCard/SavingsGoalCard';
+import TransactionList, { TransactionDirection } from '../../component/TransactionList/TransactionList';
 
 const SavingsDetailsPage = () => {
 	const savingsState = useSelector((state: RootState) => state?.savingsReducer);
@@ -69,6 +71,27 @@ const SavingsDetailsPage = () => {
 	return (
 		<Container className="pageContainerWithHeader" sx={pageContainer}>
 			<SavingsDetailsCard data={savingsState}/>
+			<SavingsGoalCard/>
+			<Typography variant="h6" component="div">Savings Transactions</Typography>
+			<TransactionList items={
+				[
+					{
+						amount: 2500,
+						date: new Date(),
+						direction: TransactionDirection.POSITIVE
+					},
+					{
+						amount: 750,
+						date: new Date(),
+						direction: TransactionDirection.NEGATIVE
+					},
+					{
+						amount: 3000,
+						date: new Date(),
+						direction: TransactionDirection.POSITIVE
+					}
+				]
+			}/>
 			{
 				isAddNewTransactionOpen ?
 				<FormWindow 

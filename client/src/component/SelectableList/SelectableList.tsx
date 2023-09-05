@@ -85,7 +85,7 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 						key={index}
 						onClick={() => onItemClick(item)}
 						sx={selectableListItem}
-						className="selectable-list-item-container"
+						className="selectableListItemContainer"
 						secondaryAction={
 							<IconButton sx={{ color: colorPalette.WHITE }}>
 								<ArrowForwardIosIcon/>

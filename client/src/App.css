@@ -8,3 +8,18 @@ body {
     left: '50%';
     transform: 'translate(-50%, -50%)';
 }
+
+.selectableListItemContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.selectableListItemContent {
+    width: 100%;
+    margin-bottom: 0px !important;
+}
+
+.selectableListItemProgressText {
+    font-size: 5px !important;
+}

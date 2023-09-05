@@ -1,10 +1,10 @@
 import { Card, CardContent, LinearProgress, Typography } from '@mui/material';
 import './SavingsDetailsCard.css';
-import { savingsDetailsCard } from '../../../utils/cosmeticsHelper';
-import { SavingsFrequency } from '../../../types/savingsType';
-import { SavingsState } from '../../../reducer/savingsReducer';
-import apiConfig from "../../../config/apiConfig.json";
-import { formatDate } from '../../../utils/helper';
+import { savingsDetailsCard } from '../../../../utils/cosmeticsHelper';
+import { SavingsFrequency } from '../../../../types/savingsType';
+import { SavingsState } from '../../../../reducer/savingsReducer';
+import apiConfig from "../../../../config/apiConfig.json";
+import { formatDate } from '../../../../utils/helper';
 
 const { currency } = apiConfig;
 
@@ -27,10 +27,15 @@ const SavingsDetailsCard = ({ data }: SavingsDetailsCardProps) => {
 
 	function renderProgressBar() {
 		return (
-			<div className="progressContainer">
+			<div>
 				<LinearProgress
 					variant="determinate"
 					value={(currentAmount / targetAmount) * 100}
+					style={
+						{
+							borderRadius: "5px"
+						}
+					}
 				/>
 				<div className="progressText">
 					<Typography variant="body1">

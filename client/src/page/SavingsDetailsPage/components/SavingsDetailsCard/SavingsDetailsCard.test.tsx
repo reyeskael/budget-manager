@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import SavingsDetailsCard from './SavingsDetailsCard';
-import { SavingsFrequency } from '../../../types/savingsType';
+import { SavingsFrequency } from '../../../../types/savingsType';
 
 test('renders learn react link', () => {
   render(<SavingsDetailsCard data={{
