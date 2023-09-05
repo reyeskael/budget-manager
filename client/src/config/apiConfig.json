@@ -1,4 +1,5 @@
 {
+    "currency": "₱",
     "localhost": {
         "protocol": "http",
         "domain": "localhost",

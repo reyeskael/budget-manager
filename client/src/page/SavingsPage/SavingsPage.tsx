@@ -1,11 +1,15 @@
-import { useState } from 'react';
-import FormWindow, { FormWindowItemProps, FormWindowItemType } from '../../component/FormWindow/FormWindow';
+import { useEffect, useState } from 'react';
+import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
 import './SavingsPage.css';
 import { Button, Container } from '@mui/material';
-import SelectableList from '../../component/SelectableList/SelectableList';
+import SelectableList, { SelectableListItemProps } from '../../component/SelectableList/SelectableList';
 import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
+import { getRequest, postRequest } from '../../utils/apiHelper';
+import { useNavigate } from 'react-router-dom';
 
 const SavingsPage: React.FC = () => {
+	const navigate = useNavigate();
+	const [ savings, setSavings ] = useState<SelectableListItemProps[]>([]);
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
 	const addNewSavingsFormItems: FormWindowItemProps[] = [
 		{
@@ -16,6 +20,7 @@ const SavingsPage: React.FC = () => {
 		},
 		{
 			type: FormWindowItemType.TEXTFIELD,
+			inputType: "number",
 			label: "Amount",
 			key: "amount",
 			required: true
@@ -48,6 +53,52 @@ const SavingsPage: React.FC = () => {
 		}
 	];
 
+	useEffect(() => {
+		getSavings();
+	}, []);
+
+	function parseSavings(savingsData: SelectableListItemProps[]) {
+		return savingsData.map((currentSavingsData: SelectableListItemProps) => {
+			const parsedCurrentSavings: SelectableListItemProps = 
+			{
+				...currentSavingsData,
+				progressBar: {
+					currentValue: currentSavingsData?.totalSavedAmount || 0,
+					targetValue: currentSavingsData.amount
+				}
+			};
+			return parsedCurrentSavings;
+		});
+	}
+
+	async function getSavings() {
+		try {
+			const response = await getRequest("/api/savings");
+			setSavings(parseSavings(response));
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
+
+	async function addSavings(data: any) {
+		try {
+			const response = await postRequest("/api/savings", data);
+			getSavings();
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
+
 	function onAddNewSavingsClick() {
 		setIsAddNewSavingsOpen(true);
 	}
@@ -56,14 +107,25 @@ const SavingsPage: React.FC = () => {
 		setIsAddNewSavingsOpen(false);
 	}
 
+	function onAddNewSavingsSubmit(e: FormWindowSubmitEvent) {
+		console.log(e);
+		addSavings(e.data);
+		setIsAddNewSavingsOpen(false);
+	}
+
+	function onSelectSavingsClick(e: any) {
+		console.log(e);
+	}
+
 	return (
 		<Container className="pageContainerWithHeader" sx={pageContainer}>
-			<SelectableList items={[]}/>
+			<SelectableList onItemSelected={onSelectSavingsClick} items={savings}/>
 			{
 				isAddNewSavingsOpen ?
 				<FormWindow 
 					title="Add New Savings"
 					items={addNewSavingsFormItems}
+					onSubmit={onAddNewSavingsSubmit}
 					onCancelClick={onCloseAddNewSavingsClick}
 				/> :
 				null

@@ -19,6 +19,7 @@ export interface FormData {
 
 export interface FormWindowItemProps {
 	type: FormWindowItemType,
+	inputType?: string,
 	required?: boolean,
 	label: string,
 	key: string,
@@ -156,6 +157,7 @@ const FormWindow = ({ title, items, edit = false, editValue, onCancelClick, onDe
 			<TextField
 				label={itemDetails.label}
 				variant="outlined"
+				type={itemDetails?.inputType || "text"}
 				required={itemDetails.required || false}
 				value={formData?.[itemDetails.key] || ""}
 				onChange={(e) => onFormTextChange(e, itemDetails)}

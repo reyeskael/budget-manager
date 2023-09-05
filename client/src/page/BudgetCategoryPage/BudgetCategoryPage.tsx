@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import SelectableList from '../../component/SelectableList/SelectableList';
+import SelectableList, { SelectableListItemProps } from '../../component/SelectableList/SelectableList';
 import { deleteRequest, getRequest, patchRequest, postRequest } from '../../utils/apiHelper';
 import './BudgetCategoryPage.css';
 import { Button, Container, Fab } from '@mui/material';
@@ -10,7 +10,7 @@ import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
 
 const BudgetCategoryPage: React.FC = () => {
 	const navigate = useNavigate();
-	const [ budgetCategories, setBudgetCategories ] = useState([]);
+	const [ budgetCategories, setBudgetCategories ] = useState<SelectableListItemProps[]>([]);
 	const [ isAddNewBudgetCategoryOpen, setIsAddNewBudgetCategoryOpen ] = useState(false);
 	const [ isEditBudgetCategoryOpen, setIsEditBudgetCategoryOpen ] = useState(false);
 	const [ isDeleteConfirmationOpen, setIsDeleteConfirmationOpen ] = useState(false);
@@ -21,18 +21,12 @@ const BudgetCategoryPage: React.FC = () => {
 			label: "Name",
 			key: "name",
 			required: true
-		},
-		{
-			type: FormWindowItemType.TEXTFIELD,
-			label: "Code",
-			key: "code",
-			required: true
 		}
 	];
 
 	useEffect(() => {
 		getBudgetCategory();
-	}, [])
+	}, []);
 	
 	async function getBudgetCategory() {
 		try {
@@ -48,9 +42,9 @@ const BudgetCategoryPage: React.FC = () => {
 		}
 	}
 
-	async function addBudgetCategory(name: string, code: string) {
+	async function addBudgetCategory(name: string) {
 		try {
-			const response = await postRequest("/api/budgetCategory", { name, code });
+			const response = await postRequest("/api/budgetCategory", { name });
 			getBudgetCategory();
 			console.log(response);
 		} catch (error: any) {
@@ -62,9 +56,9 @@ const BudgetCategoryPage: React.FC = () => {
 		}
 	}
 
-	async function editBudgetCategory(_id: string, name: string, code: string) {
+	async function editBudgetCategory(_id: string, name: string) {
 		try {
-			const response = await patchRequest("/api/budgetCategory", _id, { name, code });
+			const response = await patchRequest("/api/budgetCategory", _id, { name });
 			getBudgetCategory();
 			console.log(response);
 		} catch (error: any) {
@@ -100,9 +94,8 @@ const BudgetCategoryPage: React.FC = () => {
 
 	function onAddNewBudgetCategorySubmit(e: FormWindowSubmitEvent) {
 		const name = e.data.name?.toString() || "";
-		const code = e.data.code?.toString() || "";
 
-		addBudgetCategory(name, code);
+		addBudgetCategory(name);
 		setIsAddNewBudgetCategoryOpen(false);
 	}
 
@@ -123,9 +116,8 @@ const BudgetCategoryPage: React.FC = () => {
 	function onEditBudgetCategorySubmit(e: FormWindowSubmitEvent) {
 		const _id = e.data._id?.toString() || "";
 		const name = e.data.name?.toString() || "";
-		const code = e.data.code?.toString() || "";
 
-		editBudgetCategory(_id, name, code);
+		editBudgetCategory(_id, name);
 		setIsEditBudgetCategoryOpen(false);
 	}
 

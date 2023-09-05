@@ -1,12 +1,24 @@
 import './SelectableList.css';
-import { Divider, IconButton, InputAdornment, List, ListItem, ListItemText, TextField } from '@mui/material';
+import { IconButton, InputAdornment, LinearProgress, List, ListItem, ListItemText, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from 'react';
 import { colorPalette, selectableListItem } from '../../utils/cosmeticsHelper';
+import apiConfig from "../../config/apiConfig.json";
+
+const { currency } = apiConfig;
+interface SelectableListProgressProps {
+	currentValue: number,
+	targetValue: number
+}
+export interface SelectableListItemProps {
+	[key: string]: any,
+	name: string,
+	progressBar?: SelectableListProgressProps
+}
 
 interface SelectableListProps {
-	items?: any[],
+	items?: SelectableListItemProps[],
 	onItemSelected?: (e: any) => void
 }
 
@@ -33,6 +45,22 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 		}
 	}
 
+	function renderLinearProgressBar({ currentValue, targetValue }: SelectableListProgressProps) {
+		return (
+			<div className="selectableListItemContent">
+				<ListItemText
+					primary={`${currency} ${currentValue.toLocaleString()} / ${currency} ${targetValue.toLocaleString()}`}
+					className="selectableListItemProgressText"
+				/>
+				<LinearProgress
+					variant="determinate"
+					className="selectableListProgressBar"
+					value={(currentValue / targetValue) * 100}
+				/>
+			</div>
+		);
+	}
+
 	return (
 		<List>
 			<ListItem>
@@ -52,18 +80,31 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 				/>
 			</ListItem>
 			{
-				searchedItem?.map((item: any, index: number) => (
+				searchedItem?.map((item: SelectableListItemProps, index: number) => (
 					<ListItem
 						key={index}
 						onClick={() => onItemClick(item)}
 						sx={selectableListItem}
+						className="selectable-list-item-container"
 						secondaryAction={
 							<IconButton sx={{ color: colorPalette.WHITE }}>
 								<ArrowForwardIosIcon/>
 							</IconButton>
 						}
 					>
-						<ListItemText primary={item.name} />
+						<ListItemText
+							className="selectableListItemContent"
+							primary={item.name}
+							primaryTypographyProps={
+								{
+									fontSize: "1.05rem",
+									fontWeight: "bold"
+								}
+							}
+						/>
+						{
+							item.progressBar ? renderLinearProgressBar(item.progressBar) : null
+						}
 					</ListItem>
 				))
 			}

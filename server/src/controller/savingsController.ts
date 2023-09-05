@@ -37,8 +37,11 @@ export const retrieveSavings = async (req, res) => {
 export const createSavings = async (req, res) => {
     try {
         const { profileId } = req;
+        const { dateToFinish } = req.body;
+        const parsedDateToFinish = new Date(dateToFinish);
         const savings = await savingsModel.create({
             ...req.body,
+            dateToFinish: parsedDateToFinish,
             profileId
         });
 
@@ -78,7 +81,13 @@ export const updateSavings = async (req, res) => {
             throw new Error(ERROR_MESSAGE.SAVINGS.ID_FORMAT_INVALID);
         }
 
-        const savings = await savingsModel.findOneAndUpdate({ _id: id, profileId }, req.body);
+        const { dateToFinish } = req.body;
+        const parsedDateToFinish = new Date(dateToFinish);
+
+        const savings = await savingsModel.findOneAndUpdate({ _id: id, profileId }, {
+            ...req.body,
+            dateToFinish: parsedDateToFinish
+        });
 
         if (!savings) {
             throw new Error(ERROR_MESSAGE.SAVINGS.NOT_FOUND);
