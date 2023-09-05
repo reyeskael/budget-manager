@@ -3,8 +3,8 @@ import { Method } from "../types/apiTypes";
 
 const { protocol, domain, port } = apiConfig.localhost;
 
-export const getRequest = async (route: string) => {
-    const response = await fetch(`${protocol}://${domain}:${port}${route}`,
+export const getRequest = async (route: string, param = "") => {
+    const response = await fetch(`${protocol}://${domain}:${port}${route}${param}`,
     {
         method: Method.GET,
         credentials: 'include'

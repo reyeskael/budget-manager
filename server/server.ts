@@ -11,6 +11,7 @@ import { verifyToken } from './src/controller/authenticationController.js';
 import { profileRoute } from './src/route/profile.js';
 import { authenticationRoute } from './src/route/authentication.js';
 import { savingsRoute } from './src/route/savings.js';
+import { savingsTransactionRoute } from './src/route/savingsTransaction.js';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api/budgetCategory', verifyToken, budgetCategoryRoute);
 app.use('/api/savings', verifyToken, savingsRoute);
+app.use('/api/savingsTransaction', verifyToken, savingsTransactionRoute);
 app.use('/api/token', authenticationRoute);
 app.use('/api/profile', profileRoute);
 

@@ -4,14 +4,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../reducer/rootReducer';
 import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
 import SavingsDetailsCard from './components/SavingsDetailsCard/SavingsDetailsCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
 import SavingsGoalCard from './components/SavingsGoalCard/SavingsGoalCard';
 import TransactionList, { TransactionDirection } from '../../component/TransactionList/TransactionList';
+import { getRequest, postRequest } from '../../utils/apiHelper';
+import { useNavigate } from 'react-router-dom';
 
 const SavingsDetailsPage = () => {
+	const navigate = useNavigate();
 	const savingsState = useSelector((state: RootState) => state?.savingsReducer);
 	const [ isAddNewTransactionOpen, setIsAddNewTransactionOpen ] = useState(false);
+	const [ savingsTransactions, setSavingsTransactions ] = useState<any[]>([]);
 	const newTransactionFormItems: FormWindowItemProps[] = [
 		{
 			type: FormWindowItemType.DROPDOWN,
@@ -48,6 +52,49 @@ const SavingsDetailsPage = () => {
 			key: "note"
 		}
 	];
+
+	useEffect(() => {
+		getSavingsTransaction();
+	}, []);
+
+	function parseSavingsTransaction(savingsTransactionData: any[]) {
+		return savingsTransactionData.map((currentSavingsTransactionData: any) => {
+			const parsedCurrentSavingsTransactionData = 
+			{
+				...currentSavingsTransactionData,
+				direction: currentSavingsTransactionData.type === "savings" ? TransactionDirection.POSITIVE : TransactionDirection.NEGATIVE
+			};
+			return parsedCurrentSavingsTransactionData;
+		});
+	}
+
+	async function getSavingsTransaction() {
+		try {
+			const response = await getRequest("/api/savingsTransaction", `/${savingsState._id}`);
+			setSavingsTransactions(parseSavingsTransaction(response));
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
+
+	async function addSavingsTransaction(data: any) {
+		try {
+			const response = await postRequest("/api/savingsTransaction", data);
+			getSavingsTransaction();
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
 	
 	function onAddNewTransactionClick(e: any) {
 		console.log(e);
@@ -60,11 +107,12 @@ const SavingsDetailsPage = () => {
 	}
 
 	function onAddNewTransactionSubmit(e: FormWindowSubmitEvent) {
-		const type = e.data.type?.toString() || "";
-		const date = e.data.date?.toString() || "";
-		const amount = e.data.amount?.toString() || "";
 		console.log(e);
 		// addBudgetCategory(name);
+		addSavingsTransaction({
+			...e.data,
+			savingsId: savingsState._id
+		});
 		setIsAddNewTransactionOpen(false);
 	}
 
@@ -73,25 +121,7 @@ const SavingsDetailsPage = () => {
 			<SavingsDetailsCard data={savingsState}/>
 			<SavingsGoalCard/>
 			<Typography variant="h6" component="div">Savings Transactions</Typography>
-			<TransactionList items={
-				[
-					{
-						amount: 2500,
-						date: new Date(),
-						direction: TransactionDirection.POSITIVE
-					},
-					{
-						amount: 750,
-						date: new Date(),
-						direction: TransactionDirection.NEGATIVE
-					},
-					{
-						amount: 3000,
-						date: new Date(),
-						direction: TransactionDirection.POSITIVE
-					}
-				]
-			}/>
+			<TransactionList items={savingsTransactions}/>
 			{
 				isAddNewTransactionOpen ?
 				<FormWindow 
