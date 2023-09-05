@@ -6,9 +6,12 @@ import SelectableList, { SelectableListItemProps } from '../../component/Selecta
 import { footerButton, pageContainer } from '../../utils/cosmeticsHelper';
 import { getRequest, postRequest } from '../../utils/apiHelper';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { selectSavings } from '../../action/savingsAction';
 
 const SavingsPage: React.FC = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [ savings, setSavings ] = useState<SelectableListItemProps[]>([]);
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
 	const addNewSavingsFormItems: FormWindowItemProps[] = [
@@ -115,6 +118,8 @@ const SavingsPage: React.FC = () => {
 
 	function onSelectSavingsClick(e: any) {
 		console.log(e);
+		dispatch(selectSavings(e));
+		navigate("/savingsDetails");
 	}
 
 	return (

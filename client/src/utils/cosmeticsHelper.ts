@@ -44,3 +44,9 @@ export const selectableListItem: SxProps = {
     marginBottom: "3px",
     borderRadius: "5px"
 }
+
+export const savingsDetailsCard: SxProps = {
+    bgcolor: `${customTheme.palette.secondary.main}`,
+    color: colorPalette.WHITE,
+    borderRadius: "5px"
+}

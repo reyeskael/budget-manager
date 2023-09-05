@@ -1,0 +1,8 @@
+.savingsDetailsCard {
+    padding-top: 16px;
+}
+
+.progressText {
+    display: flex;
+    justify-content: space-between;
+}

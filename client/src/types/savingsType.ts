@@ -1,5 +1,5 @@
 export enum SavingsFrequency {
-    DAILY = "Daily",
-    WEEKLY = "Weekly",
-    MONTHLY = "Monthly"
+    DAILY = "daily",
+    WEEKLY = "weekly",
+    MONTHLY = "monthly"
 }

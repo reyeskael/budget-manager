@@ -9,14 +9,11 @@ import PaidIcon from '@mui/icons-material/Paid';
 import CreditScoreIcon from '@mui/icons-material/CreditScore';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { LoginState } from '../../reducer/loginReducer';
-import { useSelector } from 'react-redux';
 import { MenuType } from '../../types/menuItemTypes';
 import { pageContainer } from '../../utils/cosmeticsHelper';
 
 const MainPage: React.FC = () => {
 	const navigate = useNavigate();
-	const loginState = useSelector<LoginState>((state) => state);
 	const menuButtonList: ListBoxItemProps[] = [
 		{ text: MenuType.SAVINGS, icon: <SavingsIcon/> },
 		{ text: MenuType.BUDGETING, icon: <PaidIcon/> },
@@ -24,7 +21,6 @@ const MainPage: React.FC = () => {
 		{ text: MenuType.TRANSACTIONS, icon: <ReceiptIcon/> },
 		{ text: MenuType.SETTINGS, icon: <SettingsIcon/> }
 	];
-	console.log(loginState);
 	async function testApi() {
 		try {
 			const response = await getRequest("/api/budgetCategory");
