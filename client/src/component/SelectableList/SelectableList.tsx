@@ -3,7 +3,7 @@ import { Divider, IconButton, InputAdornment, List, ListItem, ListItemText, Text
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from 'react';
-import { selectableListItem } from '../../utils/cosmeticsHelper';
+import { colorPalette, selectableListItem } from '../../utils/cosmeticsHelper';
 
 interface SelectableListProps {
 	items?: any[],
@@ -44,9 +44,9 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 					onChange={onSearchChange}
 					InputProps={{
 						startAdornment: (
-						  <InputAdornment position="start">
-							<SearchIcon />
-						  </InputAdornment>
+							<InputAdornment position="start">
+								<SearchIcon />
+							</InputAdornment>
 						),
 					  }}
 				/>
@@ -55,11 +55,10 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 				searchedItem?.map((item: any, index: number) => (
 					<ListItem
 						key={index}
-						disableGutters
 						onClick={() => onItemClick(item)}
 						sx={selectableListItem}
 						secondaryAction={
-							<IconButton sx={{color:"#FFFFFF"}}>
+							<IconButton sx={{ color: colorPalette.WHITE }}>
 								<ArrowForwardIosIcon/>
 							</IconButton>
 						}

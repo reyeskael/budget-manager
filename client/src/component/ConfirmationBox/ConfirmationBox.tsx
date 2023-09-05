@@ -12,15 +12,7 @@ export interface ConfirmationBoxButtonProps {
 	value: string
 }
 
-interface ConfirmationBoxProps {
-	open: boolean,
-	title: string,
-	text: string,
-	buttons?: ConfirmationBoxButtonProps[]
-	onActionClick?: (e: ConfirmationBoxActionClickEvent) => void
-}
-
-const defaultButtons: ConfirmationBoxButtonProps[] = [
+export const defaultButtons: ConfirmationBoxButtonProps[] = [
 	{
 		text: "Yes",
 		value: "yes"
@@ -30,6 +22,14 @@ const defaultButtons: ConfirmationBoxButtonProps[] = [
 		value: "no"
 	}
 ]
+
+interface ConfirmationBoxProps {
+	open: boolean,
+	title: string,
+	text: string,
+	buttons?: ConfirmationBoxButtonProps[]
+	onActionClick?: (e: ConfirmationBoxActionClickEvent) => void
+}
 
 const ConfirmationBox = ({open = false, title, text, buttons = defaultButtons, onActionClick}: ConfirmationBoxProps) => {
 	function onButtonClick(e: any) {

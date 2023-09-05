@@ -15,33 +15,32 @@ export const customTheme: Theme = createTheme({
     palette: {
         primary: {
             main: "#404258",
-            contrastText: "#FFFFFF"
+            contrastText: colorPalette.WHITE
         },
         secondary: {
-            main: "#474E68",
-            contrastText: "#FFFFFF"
+            main: "#50577A",
+            contrastText: colorPalette.WHITE
         },
         info: {
             main: "#6B728E",
-            contrastText: "#FFFFFF"
+            contrastText: colorPalette.WHITE
         }
     }
 });
 
 export const pageContainer: SxProps = {
-    bgcolor: `#FFFFFF`
+    bgcolor: colorPalette.WHITE
 }
 
 export const footerNavigation: SxProps = {
-    height: "6vh",
+    position: "absolute",
+    bottom: 0,
     padding: "0px"
 }
 
 export const selectableListItem: SxProps = {
     bgcolor: `${customTheme.palette.secondary.main}`,
     color: colorPalette.WHITE,
-    padding: "5px",
-    paddingLeft: "15px",
     marginBottom: "3px",
     borderRadius: "5px"
 }

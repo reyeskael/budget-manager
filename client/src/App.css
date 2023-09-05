@@ -2,13 +2,9 @@ body {
     margin: 0px !important;
 }
 
-.pageContainerWithHeader {
-    height: 88vh;
-}
-
 .buttonFooter {
     position: 'absolute';
-    bottom: '7vh';
+    bottom: 0;
     left: '50%';
     transform: 'translate(-50%, -50%)';
 }

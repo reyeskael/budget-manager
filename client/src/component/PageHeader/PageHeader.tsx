@@ -32,7 +32,7 @@ const PageHeader = ({title, onMenuToggle}: PageHeaderProps) => {
 	}
 
 	return (
-		<AppBar position="static" className='pageHeader' style={{ height: '6vh' }}>
+		<AppBar position="static" className='pageHeader'>
 			<Toolbar>
 				<IconButton
 					size="large"
