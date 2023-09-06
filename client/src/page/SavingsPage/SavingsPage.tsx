@@ -12,6 +12,8 @@ import { selectSavings } from '../../action/savingsAction';
 const SavingsPage: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [ savingsResponse, setSavingsResponse ] = useState<[]>([]);
+	const [ computeSavingsTransactionsResponse, setComputeSavingsTransactionsResponse ] = useState<[]>([]);
 	const [ savings, setSavings ] = useState<SelectableListItemProps[]>([]);
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
 	const addNewSavingsFormItems: FormWindowItemProps[] = [
@@ -58,15 +60,21 @@ const SavingsPage: React.FC = () => {
 
 	useEffect(() => {
 		getSavings();
+		computeTotalTransactions();
 	}, []);
 
-	function parseSavings(savingsData: SelectableListItemProps[]) {
-		return savingsData.map((currentSavingsData: SelectableListItemProps) => {
+	useEffect(() => {
+		setSavings(parseSavings(savingsResponse, computeSavingsTransactionsResponse));
+	}, [savingsResponse, computeSavingsTransactionsResponse])
+
+	function parseSavings(savingsData: any[], computeSavingsTransactionsResponse: any[]) {
+		return savingsData.map((currentSavingsData) => {
+			const computeSavingsTransactions: any = computeSavingsTransactionsResponse.find(item => item._id.savingsId === currentSavingsData._id);
 			const parsedCurrentSavings: SelectableListItemProps = 
 			{
 				...currentSavingsData,
 				progressBar: {
-					currentValue: currentSavingsData?.totalSavedAmount || 0,
+					currentValue: computeSavingsTransactions?.totalAmount || 0,
 					targetValue: currentSavingsData.amount
 				}
 			};
@@ -74,10 +82,24 @@ const SavingsPage: React.FC = () => {
 		});
 	}
 
+	async function computeTotalTransactions() {
+		try {
+			const response = await getRequest("/api/savingsTransaction/computeTotalTransactions");
+			setComputeSavingsTransactionsResponse(response);
+			console.log(response);
+		} catch (error: any) {
+			alert(error.message);
+			if (error.message === "Missing token." || error.message === "Token is expired.") {
+				navigate("/login");
+			}
+			console.error(error);
+		}
+	}
+
 	async function getSavings() {
 		try {
 			const response = await getRequest("/api/savings");
-			setSavings(parseSavings(response));
+			setSavingsResponse(response);
 			console.log(response);
 		} catch (error: any) {
 			alert(error.message);

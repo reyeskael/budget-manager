@@ -7,7 +7,10 @@ export interface SavingsState {
     frequency: SavingsFrequency | null,
     dateToFinish: Date | null,
     profileId: string | null,
-    currentAmount?: number
+    progressBar?: {
+        currentValue: number,
+        targetValue: number
+    }
 }
 
 const initialSavingsState: SavingsState = {

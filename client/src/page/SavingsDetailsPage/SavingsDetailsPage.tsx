@@ -119,7 +119,7 @@ const SavingsDetailsPage = () => {
 	return (
 		<Container className="pageContainerWithHeader" sx={pageContainer}>
 			<SavingsDetailsCard data={savingsState}/>
-			<SavingsGoalCard/>
+			<SavingsGoalCard data={savingsState}/>
 			<Typography variant="h6" component="div">Savings Transactions</Typography>
 			<TransactionList items={savingsTransactions}/>
 			{

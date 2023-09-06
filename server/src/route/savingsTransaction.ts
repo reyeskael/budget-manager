@@ -1,7 +1,9 @@
 import express from "express";
-import { createSavingsTransactions, retrieveAllSavingsTransactions } from "../controller/savingsTransactionController.js";
+import { computeTotalTransactions, createSavingsTransactions, retrieveAllSavingsTransactions } from "../controller/savingsTransactionController.js";
 
 export const savingsTransactionRoute = express.Router();
+
+savingsTransactionRoute.get('/computeTotalTransactions', computeTotalTransactions);
 
 savingsTransactionRoute.get('/:savingsId', retrieveAllSavingsTransactions);
 

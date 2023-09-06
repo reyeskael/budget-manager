@@ -8,20 +8,13 @@ import { formatDate } from '../../../../utils/helper';
 
 const { currency } = apiConfig;
 
-export interface SavingsDetailsCardDataProps {
-	name: string,
-	amount: number,
-	frequency: SavingsFrequency,
-	dateToFinish: Date,
-}
-
 export interface SavingsDetailsCardProps {
 	data: SavingsState
 }
 
 const SavingsDetailsCard = ({ data }: SavingsDetailsCardProps) => {
-	const currentAmount: number = data?.currentAmount || 0;
-	const targetAmount: number = data.amount || 0;
+	const currentAmount: number = data?.progressBar?.currentValue || 0;
+	const targetAmount: number = data?.progressBar?.targetValue || 0;
 	const dateToFinish: string = data.dateToFinish?.toString() || "";
 	const frequency: string = data.frequency?.toString() || "";
 
