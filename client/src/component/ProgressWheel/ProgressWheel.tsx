@@ -1,7 +1,7 @@
 import { Box, CircularProgress, SxProps, Typography } from '@mui/material';
-import './PieGraph.css';
+import './ProgressWheel.css';
 
-export interface PieGraphProps {
+export interface ProgressWheelProps {
 	data: any
 }
 
@@ -16,7 +16,7 @@ const circularProgressText: SxProps = {
 	justifyContent: "center"
 }
 
-const PieGraph = ({ data }: PieGraphProps) => {
+const ProgressWheel = ({ data }: ProgressWheelProps) => {
 	return (
 		<Box sx={
 				{
@@ -36,13 +36,13 @@ const PieGraph = ({ data }: PieGraphProps) => {
 				}
 				value={100}
 				size={175}
-				thickness={2.5}
+				thickness={3.5}
 			/>
 			<CircularProgress
 				variant="determinate"
 				value={89}
 				size={175}
-				thickness={2.5}
+				thickness={3.5}
 				sx={
 					{
 						color: (theme) => {
@@ -72,4 +72,4 @@ const PieGraph = ({ data }: PieGraphProps) => {
 	);
 }
 
-export default PieGraph;
+export default ProgressWheel;

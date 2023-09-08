@@ -31,6 +31,13 @@ const SavingsPage: React.FC = () => {
 			required: true
 		},
 		{
+			type: FormWindowItemType.TEXTFIELD,
+			inputType: "number",
+			label: "Target amount per frequency",
+			key: "targetAmountPerFrequency",
+			required: true
+		},
+		{
 			type: FormWindowItemType.DROPDOWN,
 			label: "Frequency",
 			key: "frequency",

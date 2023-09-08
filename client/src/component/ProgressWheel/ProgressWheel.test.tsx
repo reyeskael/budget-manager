@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import PieGraph from './PieGraph';
+import ProgressWheel from './ProgressWheel';
 
 test('renders learn react link', () => {
-  render(<PieGraph data={{}}/>);
+  render(<ProgressWheel data={{}}/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
