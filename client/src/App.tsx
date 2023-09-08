@@ -15,6 +15,7 @@ import FooterNavigation from './component/FooterNavigation/FooterNavigation';
 import { ThemeProvider } from '@mui/material';
 import { customTheme } from './utils/cosmeticsHelper';
 import SavingsDetailsPage from './page/SavingsDetailsPage/SavingsDetailsPage';
+import BudgetingPage from './page/BudgetingPage/BudgetingPage';
 
 const store = createStore(rootReducer);
 
@@ -50,6 +51,7 @@ const App: React.FC = () => {
 					<Route path="/savings" element={<SavingsPage/>} />
 					<Route path="/budgetCategory" element={<BudgetCategoryPage/>} />
 					<Route path="/savingsDetails" element={<SavingsDetailsPage/>} />
+					<Route path="/budgeting" element={<BudgetingPage/>} />
 				</Routes>
 				{isLoginPage ? null : <FooterNavigation/>}
 				<SideMenu isOpen={isOpen} onToggleDrawer={onToggleDrawer} />

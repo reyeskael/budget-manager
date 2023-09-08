@@ -18,11 +18,12 @@ export interface SelectableListItemProps {
 }
 
 interface SelectableListProps {
+	search?: boolean,
 	items?: SelectableListItemProps[],
 	onItemSelected?: (e: any) => void
 }
 
-const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
+const SelectableList = ({search = true, items, onItemSelected}: SelectableListProps) => {
 	const [ searchedItem, setSearchedItem ] = useState(items || []);
 	const [ searchText, setSearchText ] = useState("");
 
@@ -63,22 +64,26 @@ const SelectableList = ({items, onItemSelected}: SelectableListProps) => {
 
 	return (
 		<List>
-			<ListItem>
-				<TextField
-					label="Search"
-					variant="outlined"
-					fullWidth
-					value={searchText}
-					onChange={onSearchChange}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position="start">
-								<SearchIcon />
-							</InputAdornment>
-						),
-					  }}
-				/>
-			</ListItem>
+			{
+				search ?
+				<ListItem>
+					<TextField
+						label="Search"
+						variant="outlined"
+						fullWidth
+						value={searchText}
+						onChange={onSearchChange}
+						InputProps={{
+							startAdornment: (
+								<InputAdornment position="start">
+									<SearchIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
+				</ListItem> :
+				null
+			}
 			{
 				searchedItem?.map((item: SelectableListItemProps, index: number) => (
 					<ListItem

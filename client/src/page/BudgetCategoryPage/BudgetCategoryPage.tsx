@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import SelectableList, { SelectableListItemProps } from '../../component/SelectableList/SelectableList';
 import { deleteRequest, getRequest, patchRequest, postRequest } from '../../utils/apiHelper';
 import './BudgetCategoryPage.css';
-import { Button, Container, Fab } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import FormWindow, { FormWindowItemProps, FormWindowItemType, FormWindowSubmitEvent } from '../../component/FormWindow/FormWindow';
 import ConfirmationBox from '../../component/ConfirmationBox/ConfirmationBox';
@@ -174,7 +174,7 @@ const BudgetCategoryPage: React.FC = () => {
 				variant="contained"
 				color="secondary"
 			>
-				Add Budget Category
+				New Category
 			</Button>
 		</Container>
 	);

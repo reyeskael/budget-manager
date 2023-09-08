@@ -12,8 +12,8 @@ import { selectSavings } from '../../action/savingsAction';
 const SavingsPage: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const [ savingsResponse, setSavingsResponse ] = useState<[]>([]);
-	const [ computeSavingsTransactionsResponse, setComputeSavingsTransactionsResponse ] = useState<[]>([]);
+	const [ savingsResponse, setSavingsResponse ] = useState([]);
+	const [ computeSavingsTransactionsResponse, setComputeSavingsTransactionsResponse ] = useState([]);
 	const [ savings, setSavings ] = useState<SelectableListItemProps[]>([]);
 	const [ isAddNewSavingsOpen, setIsAddNewSavingsOpen ] = useState(false);
 	const addNewSavingsFormItems: FormWindowItemProps[] = [
@@ -163,7 +163,7 @@ const SavingsPage: React.FC = () => {
 				variant="contained"
 				color="secondary"
 			>
-				Add New Savings
+				New Savings
 			</Button>
 		</Container>
 	);

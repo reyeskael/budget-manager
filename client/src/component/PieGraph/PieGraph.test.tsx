@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import MainPage from './MainPage';
+import PieGraph from './PieGraph';
 
 test('renders learn react link', () => {
-  render(<MainPage />);
+  render(<PieGraph data={{}}/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

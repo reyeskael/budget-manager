@@ -1,7 +1,6 @@
 import { Card, CardContent, LinearProgress, Typography } from '@mui/material';
 import './SavingsDetailsCard.css';
-import { savingsDetailsCard } from '../../../../utils/cosmeticsHelper';
-import { SavingsFrequency } from '../../../../types/savingsType';
+import { customCard } from '../../../../utils/cosmeticsHelper';
 import { SavingsState } from '../../../../reducer/savingsReducer';
 import apiConfig from "../../../../config/apiConfig.json";
 import { formatDate } from '../../../../utils/helper';
@@ -43,8 +42,8 @@ const SavingsDetailsCard = ({ data }: SavingsDetailsCardProps) => {
 	}
 
 	return (
-		<Card className="savingsDetailsCard">
-			<CardContent sx={savingsDetailsCard}>
+		<Card className="customCard">
+			<CardContent sx={customCard}>
 				<Typography variant="h5" component="div">
 					{data.name}
 				</Typography>

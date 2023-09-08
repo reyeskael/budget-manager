@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import './SavingsGoalCard.css';
-import { savingsDetailsCard } from '../../../../utils/cosmeticsHelper';
+import { customCard } from '../../../../utils/cosmeticsHelper';
 import TollIcon from '@mui/icons-material/Toll';
 import { SavingsState } from '../../../../reducer/savingsReducer';
 import { dateDifference } from '../../../../utils/helper';
@@ -32,14 +32,14 @@ const SavingsGoalCard = ({data}: SavingsGoalCardProps) => {
 	}
 
 	return (
-		<Card className="savingsDetailsCard">
+		<Card className="customCard">
 			<CardContent
 				style={{
 					display: "flex",
 					justifyContent: "space-between",
 					alignItems: "flex-start"
 				}}
-				sx={savingsDetailsCard}
+				sx={customCard}
 			>
 				<div>
 					<Typography variant="h6" component="div">

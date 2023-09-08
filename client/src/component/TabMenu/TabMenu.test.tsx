@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import MainPage from './MainPage';
+import TabMenu from './TabMenu';
 
 test('renders learn react link', () => {
-  render(<MainPage />);
+  render(<TabMenu items={[]}/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -11,18 +11,20 @@ interface PageHeaderProps {
 	onMenuToggle?: () => void
 }
 
-const PageHeader = ({title, onMenuToggle}: PageHeaderProps) => {
+const PageHeader = ({title: inputTitle, onMenuToggle}: PageHeaderProps) => {
 	const location = useLocation();
 	const navigate = useNavigate();
-	const [isHomePage, setIsHomePage] = useState(false);
+	const [ isHomePage, setIsHomePage ] = useState(false);
+	const [ title, setTitle ] = useState(inputTitle);
 
 	useEffect(() => {
 		setIsHomePage(location.pathname === "/");
+		setTitle(location.pathname);
 	}, [location.pathname]);
 
 	function onBackIconClick() {
 		if (!isHomePage) {
-			navigate("/");
+			navigate(-1);
 		}
 	}
 

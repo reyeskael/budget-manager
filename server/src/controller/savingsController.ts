@@ -42,7 +42,8 @@ export const createSavings = async (req, res) => {
         const savings = await savingsModel.create({
             ...req.body,
             dateToFinish: parsedDateToFinish,
-            profileId
+            profileId,
+            test: "2"
         });
 
         res.status(200).send(savings);

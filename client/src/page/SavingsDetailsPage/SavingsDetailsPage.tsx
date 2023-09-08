@@ -108,7 +108,6 @@ const SavingsDetailsPage = () => {
 
 	function onAddNewTransactionSubmit(e: FormWindowSubmitEvent) {
 		console.log(e);
-		// addBudgetCategory(name);
 		addSavingsTransaction({
 			...e.data,
 			savingsId: savingsState._id
@@ -138,7 +137,7 @@ const SavingsDetailsPage = () => {
 				variant="contained"
 				color="secondary"
 			>
-				Add New Transaction
+				New Transaction
 			</Button>
 		</Container>
 	);

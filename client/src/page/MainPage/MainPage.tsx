@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
 import { Container } from '@mui/material';
-import { getRequest } from '../../utils/apiHelper';
 import ListBox, { ListBoxItemProps } from '../../component/ListBox/ListBox';
 
 import SavingsIcon from '@mui/icons-material/Savings';
@@ -21,24 +20,14 @@ const MainPage: React.FC = () => {
 		{ text: MenuType.TRANSACTIONS, icon: <ReceiptIcon/> },
 		{ text: MenuType.SETTINGS, icon: <SettingsIcon/> }
 	];
-	async function testApi() {
-		try {
-			const response = await getRequest("/api/budgetCategory");
-			console.log(response);
-		} catch (error: any) {
-			alert(error.message);
-			if (error.message === "Missing token." || error.message === "Token is expired.") {
-				navigate("/login");
-			}
-			console.error(error);
-		}
-	}
 
 	function onMenuItemClick({ text }: ListBoxItemProps) {
-		testApi();
 		switch (text) {
 			case MenuType.SAVINGS:
 				navigate("/savings");
+				break;
+			case MenuType.BUDGETING:
+				navigate("/budgeting");
 				break;
 		}
 	}
