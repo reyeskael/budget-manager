@@ -20,12 +20,14 @@ const savingsTransactionSchema = new Schema({
         type: String
     },
     profileId: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "profile"
     },
     savingsId: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "savings"
     }
 }, { timestamps: true });
 
